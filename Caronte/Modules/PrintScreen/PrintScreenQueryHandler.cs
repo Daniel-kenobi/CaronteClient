@@ -15,15 +15,6 @@ namespace Caronte.Modules.PrintScreen
     { 
         public Task<Unit> Handle(PrintScreenQuery request, CancellationToken cancellationToken)
         {
-            System.Timers.Timer timer = new(request.SecondsToGetScreenshots * 1000);
-            timer.Elapsed += TakeScreenShot;
-            timer.Start();
-
-            return Task.FromResult(Unit.Value);
-        }
-
-        private void TakeScreenShot(object source, System.Timers.ElapsedEventArgs e)
-        {
             int screenLeft = SystemInformation.VirtualScreen.Left;
             int screenTop = SystemInformation.VirtualScreen.Top;
             int screenWidth = SystemInformation.VirtualScreen.Width;
@@ -38,6 +29,8 @@ namespace Caronte.Modules.PrintScreen
 
                 bitmap.Save(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"{DateTime.Now.ToString("ddMMyyyyssff")}Shot.png"));
             }
+
+            return Task.FromResult(Unit.Value);
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Caronte
             {
                 while (!_cancellationToken.IsCancellationRequested)
                 {
-                    await _mediator.Send(new PrintScreenQuery() { SecondsToGetScreenshots = 5});
+                    await _mediator.Send(new PrintScreenQuery());
                     await Task.Delay(TimeSpan.FromSeconds(1), _cancellationToken);
                 }
             }, _cancellationToken);
