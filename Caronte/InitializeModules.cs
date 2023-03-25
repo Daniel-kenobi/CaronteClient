@@ -3,29 +3,41 @@ using Caronte.Modules.PrintScreen;
 using Caronte.Modules.ReceiveCommand;
 using MediatR;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Caronte
 {
-    public static class InitializeModules
+    public class InitializeModules
     {
-        private static IMediator _mediator;
-        private static CancellationToken _cancellationToken;  
-        public static async Task Initialize(IMediator mediator, CancellationToken cancellationToken)
+        private readonly IMediator _mediator;
+        private readonly CancellationToken _cancellationToken;
+
+        public InitializeModules(IMediator mediator, CancellationToken cancellationToken)
         {
             _mediator = mediator;
             _cancellationToken = cancellationToken;
-
-            var logTask = InitializeLogTask();
-            var printScreenTask = InitializePrintScreenTask();
-            var receiveCommandTask = InitializeReceiveCommandTask();
-
-
-            await Task.WhenAll(logTask, printScreenTask, receiveCommandTask);
         }
 
-        private static Task InitializeLogTask()
+        private List<Task> CreateExecutionQueue()
+        {
+            var tasks = new List<Task>
+            {
+                //InitializeLogTask(),
+                //InitializePrintScreenTask(),
+                InitializeReceiveCommandTask()
+            };
+
+            return tasks;
+        }
+
+        public async Task Initialize()
+        {
+            await Task.WhenAll(CreateExecutionQueue());
+        }
+
+        private Task InitializeLogTask()
         {
             var logTask = Task.Run(async () =>
             {
@@ -38,7 +50,7 @@ namespace Caronte
             return logTask;
         }
 
-        private static Task InitializePrintScreenTask()
+        private Task InitializePrintScreenTask()
         {
             var printScreenTask = Task.Run(async () =>
             {
@@ -52,17 +64,31 @@ namespace Caronte
             return printScreenTask;
         }
 
-        private static Task InitializeReceiveCommandTask()
+        private Task InitializeReceiveCommandTask()
         {
             var receiveCommandTask = Task.Run(async () =>
             {
                 while (!_cancellationToken.IsCancellationRequested)
                 {
-                    await _mediator.Send(new ReceiveCommandQuery());
+                    await _mediator.Send(new ReceiveCommandQuery() { Seconds = 10 });
+                    await Task.Delay(TimeSpan.FromSeconds(10), _cancellationToken);
                 }
             }, _cancellationToken);
 
             return receiveCommandTask;
+        }
+
+        private Task GetClientInformation()
+        {
+            var getClientInformationTask = Task.Run(async () =>
+            {
+                while (!_cancellationToken.IsCancellationRequested)
+                {
+                    await _mediator.Send(new );
+                }
+            }, _cancellationToken);
+
+            return getClientInformationTask;
         }
     }
 }

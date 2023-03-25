@@ -1,12 +1,8 @@
-using Caronte.Modules.Logger;
+using Caronte.Configurations;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Caronte
 {
@@ -15,18 +11,18 @@ namespace Caronte
         [STAThread]
         static async Task Main(string[] args)
         {
-            IServiceCollection services = new ServiceCollection();
+            var configureApplication = new ConfigureApplication();
+            var mediator = configureApplication.ConfigureApplicationServices().GetRequiredService<IMediator>();
 
-            services.AddMediatR(typeof(LogQuery));
+            configureApplication.ConfigureApplicationStyles();
 
-            var serviceProvider = services.BuildServiceProvider();
-            var mediator = serviceProvider.GetRequiredService<IMediator>();
+            await InitializeExecution(mediator, default);
+        }
 
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            await InitializeModules.Initialize(mediator, default);
+        private static async Task InitializeExecution(IMediator mediator, System.Threading.CancellationToken cancellationToken)
+        {
+            var initializeModules = new InitializeModules(mediator, cancellationToken);
+            await initializeModules.Initialize();
         }
     }
 }
