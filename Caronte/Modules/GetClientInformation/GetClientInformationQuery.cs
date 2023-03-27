@@ -1,13 +1,9 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CaronteLib.Models.ClientInformation;
+using MediatR;
 
 namespace Caronte.Modules.GetClientInformation
 {
-    public class GetClientInformationQuery : IRequest
+    public class GetClientInformationQuery : IRequest<ClientInformationModel>
     {
 
     }

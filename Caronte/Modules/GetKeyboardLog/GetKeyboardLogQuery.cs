@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.Logger
 {
-    public class LogQuery : IRequest
+    public class GetKeyboardLogQuery : IRequest
     {
 
     }

@@ -1,4 +1,6 @@
 ﻿using Caronte.Modules.Logger;
+using CaronteLib.Implementations;
+using CaronteLib.Interfaces;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Forms;
@@ -18,7 +20,8 @@ namespace Caronte.Configurations
         {
             IServiceCollection services = new ServiceCollection();
 
-            services.AddMediatR(typeof(LogQuery));
+            services.AddSingleton<IWebServiceData, WebServiceData>();
+            services.AddMediatR(typeof(GetKeyboardLogQuery));
             services.AddHttpClient();
 
             var serviceProvider = services.BuildServiceProvider();
