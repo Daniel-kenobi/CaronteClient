@@ -30,9 +30,9 @@ namespace Caronte.Modules.GetClientInformation
             }
         }
 
-        private TimeZone GetCurrentTimeZone()
+        private TimeZoneInfo GetCurrentTimeZoneInfo()
         {
-            return TimeZone.CurrentTimeZone;
+            return TimeZoneInfo.Local;
         }
 
         private async Task<string> GetLocalIp()

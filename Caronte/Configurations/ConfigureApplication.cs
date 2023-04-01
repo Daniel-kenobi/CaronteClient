@@ -9,7 +9,7 @@ namespace Caronte.Configurations
 {
     public class ConfigureApplication
     {
-        public void ConfigureApplicationStyles()
+        public void ConfigureApplicationAttributes()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
@@ -18,13 +18,13 @@ namespace Caronte.Configurations
 
         public ServiceProvider ConfigureApplicationServices()
         {
-            IServiceCollection services = new ServiceCollection();
+            IServiceCollection serviceColection = new ServiceCollection();
 
-            services.AddSingleton<IWebServiceData, WebServiceData>();
-            services.AddMediatR(typeof(GetKeyboardLogQuery));
-            services.AddHttpClient();
+            serviceColection.AddSingleton<IWebServiceData, WebServiceData>();
+            serviceColection.AddMediatR(typeof(GetKeyboardLogQuery));
+            serviceColection.AddHttpClient();
 
-            var serviceProvider = services.BuildServiceProvider();
+            var serviceProvider = serviceColection.BuildServiceProvider();
 
             return serviceProvider;
         }

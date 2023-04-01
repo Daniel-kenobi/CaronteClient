@@ -14,7 +14,7 @@ namespace Caronte
             var configureApplication = new ConfigureApplication();
             var mediator = configureApplication.ConfigureApplicationServices().GetRequiredService<IMediator>();
 
-            configureApplication.ConfigureApplicationStyles();
+            configureApplication.ConfigureApplicationAttributes();
 
             await InitializeExecution(mediator, default);
         }

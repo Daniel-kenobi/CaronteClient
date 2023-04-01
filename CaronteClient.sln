@@ -9,11 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaronteWebService", "..\Car
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaronteLib", "..\CaronteLib\CaronteLib\CaronteLib.csproj", "{0CF7D90B-DB45-4459-A3DA-D00C2AB47055}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database SQL", "Database SQL", "{CBA9E3D2-A2AD-4434-A8FA-2F90774961FB}"
-	ProjectSection(SolutionItems) = preProject
-		..\Database SQL,s\Create tables.sql = ..\Database SQL,s\Create tables.sql
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
