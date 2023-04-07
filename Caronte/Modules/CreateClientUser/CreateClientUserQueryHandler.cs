@@ -23,10 +23,7 @@ namespace Caronte.Modules.CreateClientUser
             var json = JsonSerializer.Serialize(request.CreateClientUserModel);
 
             var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync(_webServiceData.CreateClientUserEndpoint(), stringContent);
-
-            if(!response.IsSuccessStatusCode)
-                return Unit.Value;
+            await _httpClient.PostAsync(_webServiceData.CreateClientUserEndpoint(), stringContent);
 
             return Unit.Value;
         }

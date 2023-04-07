@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Forms;
 
-namespace Caronte.Configurations
+namespace Caronte.Configuration
 {
     public class ConfigureApplication
     {

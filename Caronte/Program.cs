@@ -1,4 +1,4 @@
-using Caronte.Configurations;
+using Caronte.Configuration;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -11,9 +11,9 @@ namespace Caronte
         [STAThread]
         static async Task Main(string[] args)
         {
-            var configureApplication = new ConfigureApplication();
+            ConfigureApplication configureApplication = new();
+            
             var mediator = configureApplication.ConfigureApplicationServices().GetRequiredService<IMediator>();
-
             configureApplication.ConfigureApplicationAttributes();
 
             await InitializeExecution(mediator, default);

