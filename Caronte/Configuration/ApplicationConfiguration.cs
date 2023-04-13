@@ -1,4 +1,4 @@
-﻿using Caronte.Modules.Logger;
+﻿using Caronte.Modules.Information.GetKeyboardLog;
 using CaronteLib.Implementations;
 using CaronteLib.Interfaces;
 using MediatR;
@@ -7,20 +7,20 @@ using System.Windows.Forms;
 
 namespace Caronte.Configuration
 {
-    public class ConfigureApplication
+    public class ApplicationConfiguration
     {
-        public void ConfigureApplicationAttributes()
+        public void ConfigureAttributes()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
         }
 
-        public ServiceProvider ConfigureApplicationServices()
+        public ServiceProvider ConfigureServices()
         {
             IServiceCollection serviceColection = new ServiceCollection();
 
-            serviceColection.AddSingleton<IWebServiceData, WebServiceData>();
+            serviceColection.AddSingleton<IWebServiceURLFactory, WebServiceData>();
             serviceColection.AddMediatR(typeof(GetKeyboardLogQuery));
             serviceColection.AddHttpClient();
 

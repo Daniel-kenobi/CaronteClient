@@ -24,7 +24,7 @@ namespace Caronte
 
         private async Task CreateUser()
         {
-            await _mediator.Send(new CreateClientUserQuery());
+            await _mediator.Send(new CreateClientUserCommand());
         }
 
         private async Task<List<Task>> CreateExecutionQueue()

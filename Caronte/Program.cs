@@ -11,10 +11,10 @@ namespace Caronte
         [STAThread]
         static async Task Main(string[] args)
         {
-            ConfigureApplication configureApplication = new();
+            Configuration.ApplicationConfiguration configureApplication = new();
             
-            var mediator = configureApplication.ConfigureApplicationServices().GetRequiredService<IMediator>();
-            configureApplication.ConfigureApplicationAttributes();
+            var mediator = configureApplication.ConfigureServices().GetRequiredService<IMediator>();
+            configureApplication.ConfigureAttributes();
 
             await InitializeExecution(mediator, default);
         }

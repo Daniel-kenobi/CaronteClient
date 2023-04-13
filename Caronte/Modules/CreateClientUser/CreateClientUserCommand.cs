@@ -1,9 +1,10 @@
 ﻿using CaronteLib.Models.CreateClientUser;
+using CaronteLib.Response;
 using MediatR;
 
 namespace Caronte.Modules.CreateClientUser
 {
-    public class CreateClientUserQuery : IRequest
+    public class CreateClientUserCommand : IRequest<CommomMediatorResponses>
     {
         public CreateClientUserModel CreateClientUserModel { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using CaronteLib.Response;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Caronte.Modules.ReceiveCommand
+namespace Caronte.Modules.Command.ReceiveCommand
 {
-    public class ReceiveCommandQueryHandler : IRequestHandler<ReceiveCommandQuery>
+    public class ReceiveCommandQueryHandler : IRequestHandler<CommomMediatorResponses>
     {
         private HttpClient _httpClient;
         public ReceiveCommandQueryHandler(IHttpClientFactory httpClientFactory)
@@ -17,7 +18,7 @@ namespace Caronte.Modules.ReceiveCommand
             _httpClient = httpClientFactory.CreateClient();
         }
 
-        public async Task<Unit> Handle(ReceiveCommandQuery request, CancellationToken cancellationToken)
+        public async Task<CommomMediatorResponses> Handle(ReceiveCommandQuery request, CancellationToken cancellationToken)
         {
             try
             {
@@ -27,8 +28,6 @@ namespace Caronte.Modules.ReceiveCommand
             {
 
             }
-
-            return Unit.Value;
         }
     }
 }
