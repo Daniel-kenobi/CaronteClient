@@ -19,8 +19,4 @@
     <ProjectReference Include="..\..\CaronteLib\CaronteLib\CaronteLib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Github Deploy\" />
-  </ItemGroup>
-
 </Project>
