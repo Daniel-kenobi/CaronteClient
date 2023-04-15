@@ -25,6 +25,7 @@
 	<li>Session hijacking nos navegadores baseados em chromium</li>
 	<li>Executar comando de trojan quando for solicitado pelo servidor</li>
 	<li>Enviar cópia de arquivos ao servidor quando for solicitado</li>
+	<li>Melhoria na camuflagem no sistema operacional por meio de malwares ajudantes<li>
 </ul>
 
 
