@@ -28,7 +28,7 @@
 	<li>Melhoria na camuflagem no sistema operacional por meio de malwares ajudantes</li>
 	<li>Executar comando de DDoS(SYN/ACK) quando for solicitado</li>
 	<li>Melhoria no log do usuário (Trazer mais informações)</li>
-	<li>Carregar configuração para execução das tarefas (INtervalo de tempo e etc)</li>
+	<li>Carregar configuração para execução das tarefas (Intervalo de tempo e etc)</li>
 </ul>
 
 
