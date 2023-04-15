@@ -22,6 +22,7 @@ namespace Caronte
         public async Task Initialize()
         {
             await _mediator.Send(new VerifyAndCreateClientUserCommand());
+
             await Task.WhenAll(CreateExecutionQueue());
         }
 
