@@ -5,14 +5,14 @@
 ## Caronte é um rootkit criado para fins educacionais e de testes.
 
 <p></br>
-	Foi criado visando praticar técnicas de desenvolvimento software e segurança da infomração.
+	Foi criado visando praticar técnicas de boas práticas no desenvolvimento software e segurança da infomração.
 	Foi projetado em C# e seu sistema alvo é windows, embora esteja estudando para portar também para outros SO,s.
 </p>
 
 ### Funções:
 
 <ul>
-	<li>Coletar print das telas</li>
+	<li>Coletar print das telas em um intervalo de tempo</li>
 	<li>Coletar dados das teclas pressionadas</li>
 	<li>Coletar dados do sistema do usuário (Nome de usuário, ip, timezone e etc)</li>
 	<li>Executar comandos no CMD</li>
@@ -26,6 +26,8 @@
 	<li>Executar comando de trojan quando for solicitado pelo servidor</li>
 	<li>Enviar cópia de arquivos ao servidor quando for solicitado</li>
 	<li>Melhoria na camuflagem no sistema operacional por meio de malwares ajudantes<li>
+	<li>Executar comando de DDoS(SYN/ACK) quando for solicitado</li>
+	<li>Melhoria no log do usuário (Trazer mais informações)</li>
 </ul>
 
 
