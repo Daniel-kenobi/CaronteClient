@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Caronte.Modules.CreateClientUser
 {
-    public class CreateClientUserCommand : IRequest<CommomMediatorResponses>
+    public class VerifyAndCreateClientUserCommand : IRequest<CommomMediatorResponse>
     {
         public CreateClientUserModel CreateClientUserModel { get; set; }
     }

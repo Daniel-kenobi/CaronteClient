@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Caronte.Modules.Information.GetClientPrintScreen
 {
-    public class PrintScreenQuery : IRequest<CommomMediatorResponses>
+    public class PrintScreenQuery : IRequest<CommomMediatorResponse>
     {
         public double SecondsToGetScreenshots { get; set; }
     }

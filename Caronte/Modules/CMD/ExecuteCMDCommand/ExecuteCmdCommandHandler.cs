@@ -13,16 +13,16 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.CMD.ExecuteCMDCommand
 {
-    public class ExecuteCmdCommandHandler : SendErrorToServer, IRequestHandler<ExecuteCmdCommand, CommomMediatorResponses>
+    public class ExecuteCmdCommandHandler : SendErrorToServer, IRequestHandler<ExecuteCmdCommand, CommomMediatorResponse>
     {
         public ExecuteCmdCommandHandler(IHttpClientFactory httpClient, IWebServiceURLFactory urlFactory) : base(httpClient, urlFactory)
         {
 
         }
 
-        public async Task<CommomMediatorResponses> Handle(ExecuteCmdCommand request, CancellationToken cancellationToken)
+        public async Task<CommomMediatorResponse> Handle(ExecuteCmdCommand request, CancellationToken cancellationToken)
         {
-            CommomMediatorResponses response = new();
+            CommomMediatorResponse response = new();
 
             try
             {
@@ -43,6 +43,7 @@ namespace Caronte.Modules.CMD.ExecuteCMDCommand
             }
             catch (Exception ex)
             {
+                await SendError(ex);
                 response.AddErrors(new MediatorErrors(ErrorType.Unspecified, ex?.Message, new List<Exception>() { ex }));
             }
 

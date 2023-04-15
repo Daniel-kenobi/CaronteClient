@@ -13,19 +13,19 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.CreateClientUser
 {
-    public class CreateClientUserCommandHandler : IRequestHandler<CreateClientUserCommand, CommomMediatorResponses>
+    public class CreateAndVerifyClientUserCommandHandler : IRequestHandler<VerifyAndCreateClientUserCommand, CommomMediatorResponse>
     {
         private readonly HttpClient _httpClient;
         private readonly IWebServiceURLFactory _webServiceUrl;
-        public CreateClientUserCommandHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceUrl)
+        public CreateAndVerifyClientUserCommandHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceUrl)
         {
             _httpClient = httpClientFactory.CreateClient();
             _webServiceUrl = webServiceUrl;
         }
 
-        public async Task<CommomMediatorResponses> Handle(CreateClientUserCommand request, CancellationToken cancellationToken)
+        public async Task<CommomMediatorResponse> Handle(VerifyAndCreateClientUserCommand request, CancellationToken cancellationToken)
         {
-            var response = new CommomMediatorResponses();
+            var response = new CommomMediatorResponse();
             try
             {
                 var json = JsonSerializer.Serialize(request.CreateClientUserModel);

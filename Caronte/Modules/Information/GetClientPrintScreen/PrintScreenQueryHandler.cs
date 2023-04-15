@@ -1,18 +1,31 @@
-﻿using CaronteLib.Response;
+﻿using CaronteLib.Abstracts;
+using CaronteLib.Interfaces;
+using CaronteLib.Models.Enums;
+using CaronteLib.Models.Errors;
+using CaronteLib.Response;
 using MediatR;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Caronte.Modules.Information.GetClientPrintScreen
 {
-    public class PrintScreenQueryHandler : IRequestHandler<CommomMediatorResponses, CommomMediatorResponses>
+    public class PrintScreenQueryHandler : SendErrorToServer, IRequestHandler<PrintScreenQuery, CommomMediatorResponse>
     {
-        public Task<CommomMediatorResponses> Handle(PrintScreenQuery request, CancellationToken cancellationToken)
+        public PrintScreenQueryHandler(IHttpClientFactory httpClient, IWebServiceURLFactory urlFactory) : base(httpClient, urlFactory)
         {
+
+        }
+
+        public async Task<CommomMediatorResponse> Handle(PrintScreenQuery request, CancellationToken cancellationToken)
+        {
+            var response = new CommomMediatorResponse();
+
             try
             {
                 int screenLeft = SystemInformation.VirtualScreen.Left;
@@ -29,13 +42,14 @@ namespace Caronte.Modules.Information.GetClientPrintScreen
 
                     bitmap.Save(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"{DateTime.Now.ToString("ddMMyyyyssff")}Shot.png"));
                 }
-
-                return Task.FromResult(Unit.Value);
             }
             catch (Exception ex)
             {
-
+                await SendError(ex);
+                response.AddErrors(new MediatorErrors(ErrorType.BadRequest, ex?.Message, new List<Exception>() { ex }));
             }
+
+            return response;
         }
     }
 }
