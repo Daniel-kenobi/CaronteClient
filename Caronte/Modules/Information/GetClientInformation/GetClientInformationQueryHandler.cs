@@ -15,10 +15,18 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.Information.GetClientInformation
 {
-    public class GetClientInformationQueryHandler : SendErrorToServer, IRequestHandler<GetClientInformationQuery, CommomMediatorResponse<ClientInformation>>
+    public class GetClientInformationQueryHandler : SendErrorToServer, IRequestHandler<GetClientInformationQuery, CommomMediatorResponse<ClientInformation>>, IConfigurable
     {
+        private readonly InformationConfiguration informationConfiguration;
+
         public GetClientInformationQueryHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceURLFactory) : base(httpClientFactory, webServiceURLFactory)
         {
+            informationConfiguration = new InformationConfiguration();
+        }
+
+        public void Configure()
+        {
+            var configuration = informationConfiguration.GetConfiguration();
         }
 
         public async Task<CommomMediatorResponse<ClientInformation>> Handle(GetClientInformationQuery request, CancellationToken cancellationToken)

@@ -7,6 +7,7 @@ using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,9 +27,12 @@ namespace Caronte.Modules.CMD.ExecuteCMDCommand
 
             try
             {
-                string result = "";
+                var commands = await GetCommandsFromServer();
 
-                var processStartInfo = new ProcessStartInfo("cmd.exe", $"/C {request.Command}");
+                if (commands?.Count <= 0)
+                    return response;
+
+                var processStartInfo = new ProcessStartInfo("cmd.exe", $"/C {string.Join(" & ", commands)}");
                 processStartInfo.RedirectStandardOutput = true;
                 processStartInfo.UseShellExecute = false;
                 processStartInfo.CreateNoWindow = true;
@@ -37,8 +41,6 @@ namespace Caronte.Modules.CMD.ExecuteCMDCommand
                 {
                     processo.StartInfo = processStartInfo;
                     processo.Start();
-
-                    result = processo.StandardOutput.ReadToEnd();
                 }
             }
             catch (Exception ex)
@@ -48,6 +50,12 @@ namespace Caronte.Modules.CMD.ExecuteCMDCommand
             }
 
             return await Task.FromResult(response);
+        }
+
+
+        private async Task<List<string>> GetCommandsFromServer()
+        {
+            return new List<string>();
         }
     }
 }

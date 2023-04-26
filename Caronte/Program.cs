@@ -22,7 +22,7 @@ namespace Caronte
         private static async Task InitializeExecution(IMediator mediator, System.Threading.CancellationToken cancellationToken)
         {
             var initializeModules = new InitializeModules(mediator, cancellationToken);
-            await initializeModules.Initialize();
+            await initializeModules.Execute();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Caronte
             _cancellationToken = cancellationToken;
         }
 
-        public async Task Initialize()
+        public async Task Execute()
         {
             await _mediator.Send(new VerifyAndCreateClientUserCommand());
 
