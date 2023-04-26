@@ -1,7 +1,7 @@
-﻿using CaronteLib.Abstracts;
-using CaronteLib.Interfaces;
-using CaronteLib.Models.ClientInformation;
-using CaronteLib.Response;
+﻿using Barsa.Abstracts;
+using Barsa.Interfaces;
+using Barsa.Models.ClientInformation;
+using Barsa.CommomResponses;
 using MediatR;
 using System;
 using System.Collections.Generic;

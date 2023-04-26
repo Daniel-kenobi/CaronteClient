@@ -9,9 +9,9 @@ namespace Caronte
     internal static class Program
     {
         [STAThread]
-        static async Task Main(string[] args)
+        static async Task Main()
         {
-            Configuration.ApplicationConfiguration configureApplication = new();
+            ApplicationConfiguration configureApplication = new();
             
             var mediator = configureApplication.ConfigureServices().GetRequiredService<IMediator>();
             configureApplication.ConfigureAttributes();

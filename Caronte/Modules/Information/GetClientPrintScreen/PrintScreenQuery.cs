@@ -1,4 +1,4 @@
-﻿using CaronteLib.Response;
+﻿using Barsa.CommomResponses;
 using MediatR;
 
 namespace Caronte.Modules.Information.GetClientPrintScreen

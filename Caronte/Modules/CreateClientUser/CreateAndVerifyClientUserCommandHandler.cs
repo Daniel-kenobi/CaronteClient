@@ -1,7 +1,7 @@
-﻿using CaronteLib.Interfaces;
-using CaronteLib.Models.Enums;
-using CaronteLib.Models.Errors;
-using CaronteLib.Response;
+﻿using Barsa.Interfaces;
+using Barsa.Models.Enums;
+using Barsa.Models.Errors;
+using Barsa.CommomResponses;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace Caronte.Modules.CreateClientUser
             try
             {
                 var json = JsonSerializer.Serialize(request.CreateClientUserModel);
-                var httpResponse = await _httpClient.PostAsync(_webServiceUrl.CreateClientUserEndpoint(), CreateStringContentToPost(json));
+                var httpResponse = await _httpClient.PostAsync(_webServiceUrl.CreateClientUser(), CreateStringContentToPost(json));
 
                 if (!httpResponse.IsSuccessStatusCode)
                     response.AddErrors(new MediatorErrors(ErrorType.BadRequest, httpResponse.ReasonPhrase));

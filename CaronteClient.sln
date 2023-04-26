@@ -5,9 +5,9 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte", "Caronte\Caronte.csproj", "{9D9B9656-09ED-49AC-AFBA-B33AF782E754}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaronteWebService", "..\CaronteWebService\CaronteWebService\CaronteWebService.csproj", "{5F65EA03-E3B3-49EA-8A2A-A9060B44E772}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tartaro", "..\CaronteWebService\CaronteWebService\Tartaro.csproj", "{5F65EA03-E3B3-49EA-8A2A-A9060B44E772}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaronteLib", "..\CaronteLib\CaronteLib\CaronteLib.csproj", "{0CF7D90B-DB45-4459-A3DA-D00C2AB47055}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Barsa", "..\CaronteLib\CaronteLib\Barsa.csproj", "{0CF7D90B-DB45-4459-A3DA-D00C2AB47055}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

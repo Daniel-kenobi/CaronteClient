@@ -1,4 +1,4 @@
-﻿using CaronteLib.Response;
+﻿using Barsa.CommomResponses;
 using MediatR;
 using System;
 using System.Diagnostics;

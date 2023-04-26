@@ -1,11 +1,11 @@
-﻿using CaronteLib.Models.CreateClientUser;
-using CaronteLib.Response;
+﻿using Barsa.Models.CreateClientUser;
+using Barsa.CommomResponses;
 using MediatR;
 
 namespace Caronte.Modules.CreateClientUser
 {
     public class VerifyAndCreateClientUserCommand : IRequest<CommomMediatorResponse>
     {
-        public CreateClientUserModel CreateClientUserModel { get; set; }
+        public ClientUserModel CreateClientUserModel { get; set; }
     }
 }

@@ -1,8 +1,8 @@
-﻿using CaronteLib.Abstracts;
-using CaronteLib.Interfaces;
-using CaronteLib.Models.Enums;
-using CaronteLib.Models.Errors;
-using CaronteLib.Response;
+﻿using Barsa.Abstracts;
+using Barsa.Interfaces;
+using Barsa.Models.Enums;
+using Barsa.Models.Errors;
+using Barsa.CommomResponses;
 using MediatR;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
-﻿using Caronte.Modules.Information.GetKeyboardLog;
-using CaronteLib.Implementations;
-using CaronteLib.Interfaces;
+﻿using Barsa.Implementations;
+using Barsa.Interfaces;
+using Caronte.Modules.Information.GetKeyboardLog;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Forms;
@@ -25,7 +25,6 @@ namespace Caronte.Configuration
             serviceColection.AddHttpClient();
 
             var serviceProvider = serviceColection.BuildServiceProvider();
-
             return serviceProvider;
         }
     }
