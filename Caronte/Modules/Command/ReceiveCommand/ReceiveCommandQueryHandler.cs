@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.Command.ReceiveCommand
 {
-    public class ReceiveCommandQueryHandler : SendErrorToServer, IRequestHandler<ReceiveCommandQuery, CommomMediatorResponse>
+    public class ReceiveCommandQueryHandler : HandleClientExceptions, IRequestHandler<ReceiveCommandQuery, CommomMediatorResponse>
     {
         private HttpClient _httpClient;
         public ReceiveCommandQueryHandler(IHttpClientFactory httpClient, IWebServiceURLFactory urlFactory) : base(httpClient, urlFactory)
@@ -30,7 +30,7 @@ namespace Caronte.Modules.Command.ReceiveCommand
             }
             catch (Exception ex)
             {
-                await SendError(ex);
+                await Handle(ex);
                 response.AddErrors(new MediatorErrors(ErrorType.Unspecified, ex?.Message, new List<Exception>() { ex }));
             }
 

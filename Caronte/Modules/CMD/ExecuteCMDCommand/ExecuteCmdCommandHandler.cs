@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.CMD.ExecuteCMDCommand
 {
-    public class ExecuteCmdCommandHandler : SendErrorToServer, IRequestHandler<ExecuteCmdCommand, CommomMediatorResponse>
+    public class ExecuteCmdCommandHandler : HandleClientExceptions, IRequestHandler<ExecuteCmdCommand, CommomMediatorResponse>
     {
         public ExecuteCmdCommandHandler(IHttpClientFactory httpClient, IWebServiceURLFactory urlFactory) : base(httpClient, urlFactory)
         {
@@ -45,7 +45,7 @@ namespace Caronte.Modules.CMD.ExecuteCMDCommand
             }
             catch (Exception ex)
             {
-                await SendError(ex);
+                await Handle(ex);
                 response.AddErrors(new MediatorErrors(ErrorType.Unspecified, ex?.Message, new List<Exception>() { ex }));
             }
 

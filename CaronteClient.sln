@@ -9,6 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tartaro", "..\CaronteWebSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Barsa", "..\CaronteLib\CaronteLib\Barsa.csproj", "{0CF7D90B-DB45-4459-A3DA-D00C2AB47055}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{8C934930-0D07-4AF5-A763-A727EA8A5398}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\kaosb\OneDrive\Área de Trabalho\CreateTables.sql = C:\Users\kaosb\OneDrive\Área de Trabalho\CreateTables.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

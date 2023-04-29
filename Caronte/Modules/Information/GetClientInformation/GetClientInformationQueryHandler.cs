@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.Information.GetClientInformation
 {
-    public class GetClientInformationQueryHandler : SendErrorToServer, IRequestHandler<GetClientInformationQuery, CommomMediatorResponse<ClientInformation>>, IConfigurable
+    public class GetClientInformationQueryHandler : HandleClientExceptions, IRequestHandler<GetClientInformationQuery, CommomMediatorResponse<ClientInformation>>, IConfigurable
     {
         private readonly InformationConfiguration informationConfiguration;
 
@@ -51,7 +51,7 @@ namespace Caronte.Modules.Information.GetClientInformation
             }
             catch (Exception ex)
             {
-                await SendError(ex);
+                await Handle(ex);
             }
 
             return userName;
@@ -73,7 +73,7 @@ namespace Caronte.Modules.Information.GetClientInformation
             }
             catch (Exception ex)
             {
-                await SendError(ex);
+                await Handle(ex);
             }
 
             return ip;
@@ -89,7 +89,7 @@ namespace Caronte.Modules.Information.GetClientInformation
             }
             catch (Exception ex)
             {
-                await SendError(ex);
+                await Handle(ex);
             }
 
             return ipAddress;
@@ -106,7 +106,7 @@ namespace Caronte.Modules.Information.GetClientInformation
             }
             catch (Exception ex)
             {
-                await SendError(ex);
+                await Handle(ex);
             }
 
             return desktopFiles;
@@ -120,7 +120,7 @@ namespace Caronte.Modules.Information.GetClientInformation
             }
             catch (Exception ex)
             {
-                await SendError(ex);
+                await Handle(ex);
             }
 
             return new byte[0];

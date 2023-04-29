@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace Caronte.Modules.Information.GetClientPrintScreen
 {
-    public class PrintScreenQueryHandler : SendErrorToServer, IRequestHandler<PrintScreenQuery, CommomMediatorResponse>
+    public class PrintScreenQueryHandler : HandleClientExceptions, IRequestHandler<PrintScreenQuery, CommomMediatorResponse>
     {
         public PrintScreenQueryHandler(IHttpClientFactory httpClient, IWebServiceURLFactory urlFactory) : base(httpClient, urlFactory)
         {
@@ -45,7 +45,7 @@ namespace Caronte.Modules.Information.GetClientPrintScreen
             }
             catch (Exception ex)
             {
-                await SendError(ex);
+                await Handle(ex);
                 response.AddErrors(new MediatorErrors(ErrorType.BadRequest, ex?.Message, new List<Exception>() { ex }));
             }
 
