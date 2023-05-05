@@ -1,7 +1,7 @@
 ﻿using Barsa.Abstracts;
 using Barsa.Interfaces;
 using Barsa.Models.ClientInformation;
-using Barsa.CommomResponses;
+using Barsa.Commoms;
 using MediatR;
 using System;
 using System.Collections.Generic;

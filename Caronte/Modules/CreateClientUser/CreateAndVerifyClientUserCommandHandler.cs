@@ -1,7 +1,7 @@
 ﻿using Barsa.Interfaces;
 using Barsa.Models.Enums;
 using Barsa.Models.Errors;
-using Barsa.CommomResponses;
+using Barsa.Commoms;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.CreateClientUser
 {
-    public class CreateAndVerifyClientUserCommandHandler : IRequestHandler<VerifyAndCreateClientUserCommand, CommomMediatorResponse>
+    public class CreateAndVerifyClientUserCommandHandler : IRequestHandler<VerifyAndCreateClientUserCommand, CommomResponse>
     {
         private readonly HttpClient _httpClient;
         private readonly IWebServiceURLFactory _webServiceUrl;
@@ -23,9 +23,9 @@ namespace Caronte.Modules.CreateClientUser
             _webServiceUrl = webServiceUrl;
         }
 
-        public async Task<CommomMediatorResponse> Handle(VerifyAndCreateClientUserCommand request, CancellationToken cancellationToken)
+        public async Task<CommomResponse> Handle(VerifyAndCreateClientUserCommand request, CancellationToken cancellationToken)
         {
-            var response = new CommomMediatorResponse();
+            var response = new CommomResponse();
             try
             {
                 var json = JsonSerializer.Serialize(request.CreateClientUserModel);

@@ -4,15 +4,15 @@ using System.Net.Http;
 
 namespace Caronte.Modules.Command.ReceiveCommand
 {
-    public class ExecuteReceivedCommand : HandleClientExceptions
+    public class ReceiveCommand : HandleClientExceptions
     {
         private HttpClient _httpClient;
-        public ExecuteReceivedCommand(IHttpClientFactory httpClient, IWebServiceURLFactory urlFactory) : base(httpClient, urlFactory)
+        public ReceiveCommand(IHttpClientFactory httpClient, IWebServiceURLFactory urlFactory) : base(httpClient, urlFactory)
         {
             _httpClient = httpClient.CreateClient();
         }
 
-        public void Execute()
+        public void Receive()
         {
 
         }

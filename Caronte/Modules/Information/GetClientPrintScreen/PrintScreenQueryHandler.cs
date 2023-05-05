@@ -2,7 +2,7 @@
 using Barsa.Interfaces;
 using Barsa.Models.Enums;
 using Barsa.Models.Errors;
-using Barsa.CommomResponses;
+using Barsa.Commoms;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -15,16 +15,16 @@ using System.Windows.Forms;
 
 namespace Caronte.Modules.Information.GetClientPrintScreen
 {
-    public class PrintScreenQueryHandler : HandleClientExceptions, IRequestHandler<PrintScreenQuery, CommomMediatorResponse>
+    public class PrintScreenQueryHandler : HandleClientExceptions, IRequestHandler<PrintScreenQuery, CommomResponse>
     {
         public PrintScreenQueryHandler(IHttpClientFactory httpClient, IWebServiceURLFactory urlFactory) : base(httpClient, urlFactory)
         {
 
         }
 
-        public async Task<CommomMediatorResponse> Handle(PrintScreenQuery request, CancellationToken cancellationToken)
+        public async Task<CommomResponse> Handle(PrintScreenQuery request, CancellationToken cancellationToken)
         {
-            var response = new CommomMediatorResponse();
+            var response = new CommomResponse();
 
             try
             {
