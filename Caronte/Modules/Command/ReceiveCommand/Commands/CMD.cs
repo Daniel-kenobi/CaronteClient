@@ -8,9 +8,9 @@ using System.Diagnostics;
 
 namespace Caronte.Modules.Command.ReceiveCommand.Commands
 {
-    public class CMDCommand : AbstractHandler
+    public class CMD : AbstractHandler
     {
-        public override object Handle(CommandType commandType, object param)
+        public override CommomResponse Handle(CommandType commandType, object param)
         {
             CommomResponse response = new();
 
