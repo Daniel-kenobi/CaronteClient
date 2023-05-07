@@ -16,7 +16,7 @@ using System.Management;
 
 namespace Caronte.Modules.Information.GetClientInformation
 {
-    public class GetClientInformationQueryHandler : HandleClientExceptions, IRequestHandler<GetClientInformationQuery, CommomMediatorResponse<ClientInformation>>, IConfigurable
+    public class GetClientInformationQueryHandler : HandleClientExceptions, IRequestHandler<GetClientInformationQuery, CommomResponse<ClientInformation>>, IConfigurable
     {
         private readonly InformationConfiguration informationConfiguration;
 
@@ -30,9 +30,9 @@ namespace Caronte.Modules.Information.GetClientInformation
             var configuration = informationConfiguration.GetConfiguration();
         }
 
-        public async Task<CommomMediatorResponse<ClientInformation>> Handle(GetClientInformationQuery request, CancellationToken cancellationToken)
+        public async Task<CommomResponse<ClientInformation>> Handle(GetClientInformationQuery request, CancellationToken cancellationToken)
         {
-            return new CommomMediatorResponse<ClientInformation>(new ClientInformation()
+            return new CommomResponse<ClientInformation>(new ClientInformation()
             {
                 CurrentTimeZoneInfo = GetCurrentTimeZoneInfo(),
                 DesktopFiles = await GetClientDesktopFiles(),

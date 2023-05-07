@@ -1,9 +1,8 @@
 ﻿using Barsa.Models.User;
-using MediatR;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace Caronte.Configuration
 {
@@ -11,19 +10,16 @@ namespace Caronte.Configuration
     {
         private readonly ConnectionFactory _connectionFactory;
         private readonly UserModel _user;
-        private readonly IMediator _mediator;
-
-        public CommandQueueConfiguration(UserModel user, IMediator mediator)
+        public CommandQueueConfiguration(UserModel user)
         {
             _user = user;
-            _mediator = mediator;
             _connectionFactory = new()
             {
                 HostName = "localhost"
             };
         }
 
-        public async Task Configure()
+        public void Configure()
         {
             using (var connection = _connectionFactory.CreateConnection())
             {
@@ -36,7 +32,8 @@ namespace Caronte.Configuration
                     {
                         var body = ea.Body.ToArray();
                         var message = Encoding.UTF8.GetString(body);
-                        
+                        var commandObject = JsonSerializer.Deserialize<UserCommand>(message);
+
                     };
 
                     channel.BasicConsume(queue: _user.ToString(), autoAck: true, consumer: consumer);
