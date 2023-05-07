@@ -1,5 +1,4 @@
-﻿using Caronte.Modules.Information.GetClientInformation;
-using Caronte.Modules.Information.GetClientPrintScreen;
+﻿using Caronte.Modules.Information.GetClientPrintScreen;
 using Caronte.Modules.Information.GetKeyboardLog;
 using MediatR;
 using System;

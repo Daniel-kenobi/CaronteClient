@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.CreateClientUser
 {
-    public class CreateAndVerifyClientUserCommandHandler : IRequestHandler<VerifyAndCreateClientUserCommand, CommomResponse>
+    public class VerifyAndCreateClientUserCommandHandler : IRequestHandler<VerifyAndCreateClientUserCommand, CommomResponse>
     {
         private readonly HttpClient _httpClient;
         private readonly IWebServiceURLFactory _webServiceUrl;
-        public CreateAndVerifyClientUserCommandHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceUrl)
+        public VerifyAndCreateClientUserCommandHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceUrl)
         {
             _httpClient = httpClientFactory.CreateClient();
             _webServiceUrl = webServiceUrl;
@@ -28,7 +28,7 @@ namespace Caronte.Modules.CreateClientUser
             var response = new CommomResponse();
             try
             {
-                var json = JsonSerializer.Serialize(request.CreateClientUserModel);
+                var json = JsonSerializer.Serialize(request.ClientInformation);
                 var httpResponse = await _httpClient.PostAsync(_webServiceUrl.CreateClientUser(), CreateStringContentToPost(json));
 
                 if (!httpResponse.IsSuccessStatusCode)
