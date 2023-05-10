@@ -1,7 +1,7 @@
 ﻿using Barsa.Interfaces;
 using Barsa.Models.Enums;
 using Barsa.Models.Errors;
-using Barsa.Commoms;
+using Barsa.Commons;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.ValidateClient
 {
-    public class ValidateClientCommandHandler : IRequestHandler<ValidateClientCommand, CommomResponse>
+    public class ValidateClientCommandHandler : IRequestHandler<ValidateClientCommand, CommonResponse>
     {
         private readonly HttpClient _httpClient;
         private readonly IWebServiceURLFactory _webServiceUrl;
@@ -24,9 +24,9 @@ namespace Caronte.Modules.ValidateClient
             _webServiceUrl = webServiceUrl;
         }
 
-        public async Task<CommomResponse> Handle(ValidateClientCommand request, CancellationToken cancellationToken)
+        public async Task<CommonResponse> Handle(ValidateClientCommand request, CancellationToken cancellationToken)
         {
-            var response = new CommomResponse();
+            var response = new CommonResponse();
 
             try
             {
@@ -34,11 +34,11 @@ namespace Caronte.Modules.ValidateClient
                 var httpResponse = await _httpClient.PostAsync(_webServiceUrl.ValidateClient(), CreateStringContentToPost(json));
 
                 if (!httpResponse.IsSuccessStatusCode)
-                    response.AddErrors(new MediatorErrors(ErrorType.BadRequest, httpResponse.ReasonPhrase));
+                    response.AddErrors(new Errors(ErrorType.BadRequest, httpResponse.ReasonPhrase));
             }
             catch (Exception ex)
             {
-                response.AddErrors(new MediatorErrors(ErrorType.BadRequest, ex.Message, new List<Exception>() { ex }));
+                response.AddErrors(new Errors(ErrorType.BadRequest, ex.Message, new List<Exception>() { ex }));
             }
 
             return response;

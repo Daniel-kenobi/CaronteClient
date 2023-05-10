@@ -1,9 +1,9 @@
-﻿using Barsa.Commoms;
+﻿using Barsa.Commons;
 using MediatR;
 
 namespace Caronte.Modules.Information.GetKeyboardLog
 {
-    public class GetKeyboardLogQuery : IRequest<CommomResponse>
+    public class GetKeyboardLogQuery : IRequest<CommonResponse>
     {
 
     }

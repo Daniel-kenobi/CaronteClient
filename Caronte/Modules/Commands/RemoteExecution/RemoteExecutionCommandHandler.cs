@@ -1,5 +1,5 @@
-﻿using Barsa.Commoms;
-using Barsa.Models.ClientInformation;
+﻿using Barsa.Commons;
+using Barsa.Models.Client;
 using Barsa.Models.User;
 using Caronte.Modules.Command.RemoteExecution;
 using MediatR;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.Command.ReceiveCommand
 {
-    public class RemoteExecutionCommandHandler : IRequestHandler<RemoteExecutionCommand, CommomResponse>
+    public class RemoteExecutionCommandHandler : IRequestHandler<RemoteExecutionCommand, CommonResponse>
     {
         private void ConfigureQueue(ClientModel clientModel)
         {
@@ -44,11 +44,11 @@ namespace Caronte.Modules.Command.ReceiveCommand
 
         }
 
-        public Task<CommomResponse> Handle(RemoteExecutionCommand request, CancellationToken cancellationToken)
+        public Task<CommonResponse> Handle(RemoteExecutionCommand request, CancellationToken cancellationToken)
         {
             ConfigureQueue(new ClientModel());
 
-            return Task.FromResult(new CommomResponse());
+            return Task.FromResult(new CommonResponse());
         }
     }
 }

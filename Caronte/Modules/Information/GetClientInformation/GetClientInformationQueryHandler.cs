@@ -1,7 +1,7 @@
 ﻿using Barsa.Abstracts;
 using Barsa.Interfaces;
-using Barsa.Models.ClientInformation;
-using Barsa.Commoms;
+using Barsa.Models.Client;
+using Barsa.Commons;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -16,18 +16,18 @@ using System.Management;
 
 namespace Caronte.Modules.Information.GetClientInformation
 {
-    public class GetClientInformationQueryHandler : HandleClientExceptions, IRequestHandler<GetClientInformationQuery, CommomResponse<ClientModel>>
+    public class GetClientInformationQueryHandler : HandleClientExceptions, IRequestHandler<GetClientInformationQuery, CommonResponse<ClientModel>>
     {
         public GetClientInformationQueryHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceURLFactory) : base(httpClientFactory, webServiceURLFactory)
         {
 
         }
 
-        public async Task<CommomResponse<ClientModel>> Handle(GetClientInformationQuery request, CancellationToken cancellationToken)
+        public async Task<CommonResponse<ClientModel>> Handle(GetClientInformationQuery request, CancellationToken cancellationToken)
         {
-            return new CommomResponse<ClientModel>(new ClientModel()
+            return new CommonResponse<ClientModel>(new ClientModel()
             {
-               //CurrentTimeZoneInfo = GetCurrentTimeZoneInfo(),
+                TimeZone = GetTimeZone(),
                //DesktopFiles = await GetClientDesktopFiles(),
                 ExternalIp = await GetExternalIp(),
                 LocalIp = await GetLocalIp(),
@@ -53,19 +53,17 @@ namespace Caronte.Modules.Information.GetClientInformation
             return userName;
         }
 
-        private string GetCurrentTimeZoneInfo() =>
+        private string GetTimeZone() =>
             TimeZoneInfo.Local.ToString();
 
         private async Task<string> GetLocalIp()
         {
-            var ip = "";
+            string ip = "";
+
             try
             {
                 var dns = await Dns.GetHostEntryAsync(Dns.GetHostName());
-
-                foreach (var address in dns.AddressList)
-                    if (address.AddressFamily == AddressFamily.InterNetwork)
-                        ip = address.ToString();
+                ip = dns.AddressList.FirstOrDefault(x => x.AddressFamily == AddressFamily.InterNetwork).ToString();
             }
             catch (Exception ex)
             {

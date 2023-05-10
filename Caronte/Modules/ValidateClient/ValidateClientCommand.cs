@@ -1,11 +1,11 @@
 ﻿using Barsa.Models.User;
-using Barsa.Commoms;
+using Barsa.Commons;
 using MediatR;
-using Barsa.Models.ClientInformation;
+using Barsa.Models.Client;
 
 namespace Caronte.Modules.ValidateClient
 {
-    public class ValidateClientCommand : IRequest<CommomResponse>
+    public class ValidateClientCommand : IRequest<CommonResponse>
     {
         public ClientModel ClientInformation { get; set; }
     }

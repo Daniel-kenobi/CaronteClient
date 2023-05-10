@@ -1,5 +1,5 @@
 ﻿using Barsa.Abstracts;
-using Barsa.Commoms;
+using Barsa.Commons;
 using Barsa.Models.Enums;
 using Barsa.Models.Errors;
 using System;
@@ -10,9 +10,9 @@ namespace Caronte.Modules.Command.ReceiveCommand.Commands
 {
     public class CMD : AbstractHandler
     {
-        public override CommomResponse Handle(CommandType commandType, object param)
+        public override CommonResponse Handle(CommandType commandType, object param)
         {
-            CommomResponse response = new();
+            CommonResponse response = new();
 
             if (commandType != CommandType.CMD)
                 return base.Handle(commandType, param);
@@ -33,7 +33,7 @@ namespace Caronte.Modules.Command.ReceiveCommand.Commands
             }
             catch (Exception ex)
             {
-                response.AddErrors(new MediatorErrors(ErrorType.Unspecified, ex?.Message, new List<Exception>() { ex }));
+                response.AddErrors(new Errors(ErrorType.Unspecified, ex?.Message, new List<Exception>() { ex }));
             }
 
             return response;

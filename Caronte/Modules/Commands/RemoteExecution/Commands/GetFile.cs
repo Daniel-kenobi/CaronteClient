@@ -1,5 +1,5 @@
 ﻿using Barsa.Abstracts;
-using Barsa.Commoms;
+using Barsa.Commons;
 using System;
 using System.IO;
 
@@ -7,9 +7,9 @@ namespace Caronte.Modules.Command.ReceiveCommand.Commands
 {
     public class GetFile : AbstractHandler
     {
-        public override CommomResponse Handle(CommandType CommandType, object parameter)
+        public override CommonResponse Handle(CommandType CommandType, object parameter)
         {
-            var response = new CommomResponse();
+            var response = new CommonResponse();
 
             if(CommandType != CommandType.GET_FILE)
                 return base.Handle(CommandType, parameter);
