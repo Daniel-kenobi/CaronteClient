@@ -29,6 +29,7 @@ namespace Caronte.Modules.Command.ReceiveCommand
                         var body = ea.Body.ToArray();
                         var message = Encoding.UTF8.GetString(body);
                         var serializedExecutionObject = JsonSerializer.Deserialize<UserCommand>(message);
+                        
                         Execute(serializedExecutionObject);
                     };
 
