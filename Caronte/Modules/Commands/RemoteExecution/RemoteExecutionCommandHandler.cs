@@ -1,4 +1,5 @@
 ﻿using Barsa.Commoms;
+using Barsa.Models.ClientInformation;
 using Barsa.Models.User;
 using Caronte.Modules.Command.RemoteExecution;
 using MediatR;
@@ -13,14 +14,14 @@ namespace Caronte.Modules.Command.ReceiveCommand
 {
     public class RemoteExecutionCommandHandler : IRequestHandler<RemoteExecutionCommand, CommomResponse>
     {
-        private void ConfigureQueue(UserLoginModel userModel)
+        private void ConfigureQueue(ClientModel clientModel)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
             {
                 using (var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare(userModel.ToString(), durable: false, exclusive: false, autoDelete: false, arguments: null);
+                    channel.QueueDeclare(clientModel.ToString(), durable: false, exclusive: false, autoDelete: false, arguments: null);
 
                     var consumer = new EventingBasicConsumer(channel);
                     consumer.Received += (sender, ea) =>
@@ -31,7 +32,7 @@ namespace Caronte.Modules.Command.ReceiveCommand
                         Execute(serializedExecutionObject);
                     };
 
-                    var queueToConsume = userModel.ToString();
+                    var queueToConsume = clientModel.ToString();
                     channel.BasicConsume(queueToConsume, autoAck: true, consumer: consumer);
                 }
             }
@@ -44,8 +45,7 @@ namespace Caronte.Modules.Command.ReceiveCommand
 
         public Task<CommomResponse> Handle(RemoteExecutionCommand request, CancellationToken cancellationToken)
         {
-            ConfigureQueue(new UserLoginModel() { });
-            Execute(new UserCommand() { });
+            ConfigureQueue(new ClientModel());
 
             return Task.FromResult(new CommomResponse());
         }

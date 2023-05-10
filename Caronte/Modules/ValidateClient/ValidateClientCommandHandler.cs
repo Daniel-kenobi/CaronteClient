@@ -11,25 +11,27 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Caronte.Modules.CreateClientUser
+namespace Caronte.Modules.ValidateClient
 {
-    public class VerifyAndCreateClientUserCommandHandler : IRequestHandler<VerifyAndCreateClientUserCommand, CommomResponse>
+    public class ValidateClientCommandHandler : IRequestHandler<ValidateClientCommand, CommomResponse>
     {
         private readonly HttpClient _httpClient;
         private readonly IWebServiceURLFactory _webServiceUrl;
-        public VerifyAndCreateClientUserCommandHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceUrl)
+
+        public ValidateClientCommandHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceUrl)
         {
             _httpClient = httpClientFactory.CreateClient();
             _webServiceUrl = webServiceUrl;
         }
 
-        public async Task<CommomResponse> Handle(VerifyAndCreateClientUserCommand request, CancellationToken cancellationToken)
+        public async Task<CommomResponse> Handle(ValidateClientCommand request, CancellationToken cancellationToken)
         {
             var response = new CommomResponse();
+
             try
             {
                 var json = JsonSerializer.Serialize(request.ClientInformation);
-                var httpResponse = await _httpClient.PostAsync(_webServiceUrl.CreateClientUser(), CreateStringContentToPost(json));
+                var httpResponse = await _httpClient.PostAsync(_webServiceUrl.ValidateClient(), CreateStringContentToPost(json));
 
                 if (!httpResponse.IsSuccessStatusCode)
                     response.AddErrors(new MediatorErrors(ErrorType.BadRequest, httpResponse.ReasonPhrase));

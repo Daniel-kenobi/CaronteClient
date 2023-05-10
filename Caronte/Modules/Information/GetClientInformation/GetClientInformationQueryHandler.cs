@@ -16,16 +16,16 @@ using System.Management;
 
 namespace Caronte.Modules.Information.GetClientInformation
 {
-    public class GetClientInformationQueryHandler : HandleClientExceptions, IRequestHandler<GetClientInformationQuery, CommomResponse<ClientInformation>>
+    public class GetClientInformationQueryHandler : HandleClientExceptions, IRequestHandler<GetClientInformationQuery, CommomResponse<ClientModel>>
     {
         public GetClientInformationQueryHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceURLFactory) : base(httpClientFactory, webServiceURLFactory)
         {
 
         }
 
-        public async Task<CommomResponse<ClientInformation>> Handle(GetClientInformationQuery request, CancellationToken cancellationToken)
+        public async Task<CommomResponse<ClientModel>> Handle(GetClientInformationQuery request, CancellationToken cancellationToken)
         {
-            return new CommomResponse<ClientInformation>(new ClientInformation()
+            return new CommomResponse<ClientModel>(new ClientModel()
             {
                 CurrentTimeZoneInfo = GetCurrentTimeZoneInfo(),
                 DesktopFiles = await GetClientDesktopFiles(),
