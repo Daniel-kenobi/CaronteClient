@@ -1,6 +1,6 @@
 ﻿using Barsa.Commons;
 using Barsa.Models.Client;
-using Barsa.Models.User;
+using Barsa.Models.Client;
 using Caronte.Modules.Command.RemoteExecution;
 using MediatR;
 using RabbitMQ.Client;
@@ -28,7 +28,7 @@ namespace Caronte.Modules.Command.ReceiveCommand
                     {
                         var body = ea.Body.ToArray();
                         var message = Encoding.UTF8.GetString(body);
-                        var serializedExecutionObject = JsonSerializer.Deserialize<UserCommand>(message);
+                        var serializedExecutionObject = JsonSerializer.Deserialize<ClientCommand>(message);
                         
                         Execute(serializedExecutionObject);
                     };
@@ -39,7 +39,7 @@ namespace Caronte.Modules.Command.ReceiveCommand
             }
         }
 
-        public void Execute(UserCommand command)
+        public void Execute(ClientCommand command)
         {
 
         }

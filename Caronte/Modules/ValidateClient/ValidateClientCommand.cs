@@ -1,4 +1,4 @@
-﻿using Barsa.Models.User;
+﻿using Barsa.Models.Client;
 using Barsa.Commons;
 using MediatR;
 using Barsa.Models.Client;
