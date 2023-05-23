@@ -1,7 +1,6 @@
-﻿using Barsa.Models.Client;
-using Barsa.Commons;
-using MediatR;
+﻿using Barsa.Commons;
 using Barsa.Models.Client;
+using MediatR;
 
 namespace Caronte.Modules.ValidateClient
 {

@@ -108,13 +108,20 @@ namespace Caronte.Modules.Information.GetClientInformation
 
         private string GetProcessorIdentifer()
         {
-            var managementSearcher = new ManagementObjectSearcher("Select ProcessorId From Win32_processor");
-            var managementObjects = managementSearcher.Get();
-
             var hwid = "";
 
-            foreach (ManagementObject managementObject in managementObjects)
-                hwid = managementObject["ProcessorId"].ToString();
+            try
+            {
+                var managementSearcher = new ManagementObjectSearcher("Select ProcessorId From Win32_processor");
+                var managementObjects = managementSearcher.Get();
+
+                foreach (ManagementObject managementObject in managementObjects)
+                    hwid = managementObject["ProcessorId"].ToString();
+            }
+            catch
+            {
+
+            }
 
             return hwid;
         }

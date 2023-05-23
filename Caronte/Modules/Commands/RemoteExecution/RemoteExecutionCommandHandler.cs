@@ -1,20 +1,30 @@
 ﻿using Barsa.Commons;
 using Barsa.Models.Client;
-using Barsa.Models.Client;
 using Caronte.Modules.Command.RemoteExecution;
 using MediatR;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Caronte.Modules.Command.ReceiveCommand
 {
     public class RemoteExecutionCommandHandler : IRequestHandler<RemoteExecutionCommand, CommonResponse>
     {
-        private void ConfigureQueue(ClientModel clientModel)
+        private readonly IMediator _mediator;
+        public RemoteExecutionCommandHandler(IMediator mediator)
+        {
+            _mediator = mediator;    
+        }
+
+        public async Task<CommonResponse> Handle(RemoteExecutionCommand request, CancellationToken cancellationToken)
+        {
+            await ConfigureQueueAndExecution(request.ClientModel);
+        }
+
+        private async Task ConfigureQueueAndExecution(ClientModel clientModel)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
@@ -24,13 +34,9 @@ namespace Caronte.Modules.Command.ReceiveCommand
                     channel.QueueDeclare(clientModel.ToString(), durable: false, exclusive: false, autoDelete: false, arguments: null);
 
                     var consumer = new EventingBasicConsumer(channel);
-                    consumer.Received += (sender, ea) =>
+                    consumer.Received += async (sender, ea) =>
                     {
-                        var body = ea.Body.ToArray();
-                        var message = Encoding.UTF8.GetString(body);
-                        var serializedExecutionObject = JsonSerializer.Deserialize<ClientCommand>(message);
-                        
-                        Execute(serializedExecutionObject);
+                        await ConfigureExecution(CreateMessageBody(ea));
                     };
 
                     var queueToConsume = clientModel.ToString();
@@ -39,16 +45,17 @@ namespace Caronte.Modules.Command.ReceiveCommand
             }
         }
 
-        public void Execute(ClientCommand command)
+        private ClientCommand CreateMessageBody(BasicDeliverEventArgs ea)
         {
+            var body = ea.Body.ToArray();
+            var message = Encoding.UTF8.GetString(body);
 
+            return JsonSerializer.Deserialize<ClientCommand>(message);
         }
 
-        public Task<CommonResponse> Handle(RemoteExecutionCommand request, CancellationToken cancellationToken)
+        public async Task ConfigureExecution(ClientCommand command)
         {
-            ConfigureQueue(new ClientModel());
 
-            return Task.FromResult(new CommonResponse());
         }
     }
 }
