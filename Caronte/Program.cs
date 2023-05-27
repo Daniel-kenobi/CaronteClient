@@ -11,7 +11,7 @@ namespace Caronte
         [STAThread]
         static async Task Main()
         {
-            ApplicationConfiguration configureApplication = new();
+            GeneralConfiguration configureApplication = new();
             
             var mediator = configureApplication.ConfigureServices().GetRequiredService<IMediator>();
             configureApplication.ConfigureAttributes();
@@ -22,7 +22,7 @@ namespace Caronte
         private static async Task InitializeExecution(IMediator mediator, System.Threading.CancellationToken cancellationToken)
         {
             var initializeModules = new Execution(mediator, cancellationToken);
-            await initializeModules.Initialize();
+            await initializeModules.Execute();
         }
     }
 }

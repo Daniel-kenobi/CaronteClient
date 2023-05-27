@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Caronte.Configuration
 {
-    public class ApplicationConfiguration
+    public class GeneralConfiguration
     {
         public void ConfigureAttributes()
         {

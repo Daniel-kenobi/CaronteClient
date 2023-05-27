@@ -31,10 +31,10 @@ namespace Caronte.Modules.ValidateClient
             try
             {
                 var json = JsonSerializer.Serialize(request.ClientInformation);
-                var httpResponse = await _httpClient.PostAsync(_webServiceUrl.ValidateClient(), CreateStringContentToPost(json));
+                var httpResponse = await _httpClient.PostAsync(_webServiceUrl.ValidateClient(), CreateStringContentToPost(json), cancellationToken);
 
                 if (!httpResponse.IsSuccessStatusCode)
-                    response.AddErrors(new Errors(ErrorType.BadRequest, httpResponse.ReasonPhrase));
+                    response.AddErrors(new Errors(ErrorType.BadRequest, httpResponse?.ReasonPhrase ?? "Unspecified error"));
             }
             catch (Exception ex)
             {

@@ -1,11 +1,9 @@
 ﻿using Caronte.Modules.Information;
-using Caronte.Modules.Information.GetClientInformation;
 using Caronte.Modules.PostExploitation;
-using Caronte.Modules.ValidateClient;
+using Caronte.Utils.Client;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Caronte
 {
@@ -13,24 +11,18 @@ namespace Caronte
     {
         private readonly IMediator _mediator;
         private readonly CancellationToken _cancellationToken;
+        private readonly ClientValidation _clientValidation;
 
         public Execution(IMediator mediator, CancellationToken cancellationToken)
         {
             _mediator = mediator;
             _cancellationToken = cancellationToken;
+            _clientValidation = new ClientValidation(_mediator);
         }
 
-        public async Task Initialize()
+        public async Task Execute()
         {
-            var clientInformation = await _mediator.Send(new GetClientInformationQuery());
-            var verifyAndCreateClientResponse = await _mediator.Send(new ValidateClientCommand() { ClientInformation = clientInformation.ResponseObject });
-
-            if (!verifyAndCreateClientResponse.IsSucessFull)
-            {
-                Application.Exit();
-                return;
-            }
-
+            await _clientValidation.Validate();
             await RunTasks();
         }
 
