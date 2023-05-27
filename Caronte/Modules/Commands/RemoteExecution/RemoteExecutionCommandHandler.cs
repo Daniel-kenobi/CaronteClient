@@ -8,6 +8,9 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Threading;
+using System;
+using Barsa.Models.Errors;
+using System.Collections.Generic;
 
 namespace Caronte.Modules.Command.ReceiveCommand
 {
@@ -21,7 +24,18 @@ namespace Caronte.Modules.Command.ReceiveCommand
 
         public async Task<CommonResponse> Handle(RemoteExecutionCommand request, CancellationToken cancellationToken)
         {
-            await ConfigureQueueAndExecution(request.ClientModel);
+            var response = new CommonResponse();
+
+            try
+            {
+                await ConfigureQueueAndExecution(request.ClientModel);
+            }
+            catch (Exception ex)
+            {
+                response.AddErrors(new Errors(ErrorType.Unspecified, ex?.InnerException?.Message ?? ex?.Message, new List<Exception>() { ex }));
+            }
+
+            return response;
         }
 
         private async Task ConfigureQueueAndExecution(ClientModel clientModel)
@@ -53,7 +67,7 @@ namespace Caronte.Modules.Command.ReceiveCommand
             return JsonSerializer.Deserialize<ClientCommand>(message);
         }
 
-        public async Task ConfigureExecution(ClientCommand command)
+        private async Task ConfigureExecution(ClientCommand command)
         {
 
         }
