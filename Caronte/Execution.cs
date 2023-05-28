@@ -28,11 +28,11 @@ namespace Caronte
 
         private async Task RunTasks()
         {
-            RunInfiniteTasks();
+            StartInfiniteTasksThread();
             await RunSingleExecutionTasks();
         }
 
-        private void RunInfiniteTasks()
+        private void StartInfiniteTasksThread()
         {
             Task.Run(async () =>
             {

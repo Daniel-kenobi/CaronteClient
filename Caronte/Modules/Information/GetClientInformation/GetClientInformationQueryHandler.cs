@@ -1,18 +1,16 @@
 ﻿using Barsa.Abstracts;
+using Barsa.Commons;
 using Barsa.Interfaces;
 using Barsa.Models.Client;
-using Barsa.Commons;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Management;
 using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Management;
 
 namespace Caronte.Modules.Information.GetClientInformation
 {
@@ -28,11 +26,10 @@ namespace Caronte.Modules.Information.GetClientInformation
             return new CommonResponse<ClientModel>(new ClientModel()
             {
                 TimeZone = GetTimeZone(),
-               //DesktopFiles = await GetClientDesktopFiles(),
                 ExternalIp = await GetExternalIp(),
                 LocalIp = await GetLocalIp(),
                 ClientName = await GetClientName(),
-                ProcessorIdentifier = GetProcessorIdentifer(),
+                ProcessorIdentifier = await GetProcessorIdentifer(),
                 Osversion = GetOSVersion()
             });
         }
@@ -89,26 +86,9 @@ namespace Caronte.Modules.Information.GetClientInformation
             return ipAddress;
         }
 
-        private async Task<List<string>> GetClientDesktopFiles()
+        private async Task<string> GetProcessorIdentifer()
         {
-            List<string> desktopFiles = new();
-
-            try
-            {
-                var DesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                desktopFiles = Directory.GetFiles(DesktopPath).ToList();
-            }
-            catch (Exception ex)
-            {
-                await Handle(ex);
-            }
-
-            return desktopFiles;
-        }
-
-        private string GetProcessorIdentifer()
-        {
-            var hwid = "";
+            var hwid = string.Empty;
 
             try
             {
@@ -118,9 +98,9 @@ namespace Caronte.Modules.Information.GetClientInformation
                 foreach (ManagementObject managementObject in managementObjects)
                     hwid = managementObject["ProcessorId"].ToString();
             }
-            catch
+            catch (Exception ex)
             {
-
+                await Handle(ex);
             }
 
             return hwid;
