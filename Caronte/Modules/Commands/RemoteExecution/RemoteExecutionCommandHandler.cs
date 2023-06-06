@@ -12,7 +12,6 @@ using System;
 using Barsa.Models.Errors;
 using System.Collections.Generic;
 using Caronte.Modules.Commands.RemoteExecution.Factory;
-using Barsa.Interfaces;
 
 namespace Caronte.Modules.Command.ReceiveCommand
 {
@@ -28,7 +27,7 @@ namespace Caronte.Modules.Command.ReceiveCommand
             }
             catch (Exception ex)
             {
-                response.AddErrors(new Errors(ErrorType.Unspecified, ex?.InnerException?.Message ?? ex.Message, new List<Exception>() { ex }));
+                response.AddErrors(new Errors(ErrorType.Unspecified, ex?.InnerException?.Message ?? ex?.Message, new List<Exception>() { ex }));
             }
 
             return Task.FromResult(response);

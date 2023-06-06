@@ -1,7 +1,7 @@
-﻿using Barsa.Abstracts;
-using Barsa.Commons;
-using Barsa.Interfaces;
+﻿using Barsa.Commons;
 using Barsa.Models.Client;
+using Barsa.Modules.Errors.HandleExceptions;
+using Barsa.Modules.Interfaces;
 using MediatR;
 using System;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.Information.GetClientInformation
 {
-    public class GetClientInformationQueryHandler : HandleClientExceptions, IRequestHandler<GetClientInformationQuery, CommonResponse<ClientModel>>
+    public class GetClientInformationQueryHandler : HandleExceptions, IRequestHandler<GetClientInformationQuery, CommonResponse<ClientModel>>
     {
         public GetClientInformationQueryHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceURLFactory) : base(httpClientFactory, webServiceURLFactory)
         {
@@ -76,7 +76,7 @@ namespace Caronte.Modules.Information.GetClientInformation
 
             try
             {
-                ipAddress = IPAddress.Parse((await new WebClient().DownloadStringTaskAsync("http://icanhazip.com")).Replace("\n", "").Replace("\"", "")).ToString();
+                ipAddress = IPAddress.Parse((await new HttpClient().GetStringAsync("http://icanhazip.com")).Replace("\n", "").Replace("\"", "")).ToString();
             }
             catch (Exception ex)
             {
@@ -88,7 +88,7 @@ namespace Caronte.Modules.Information.GetClientInformation
 
         private async Task<string> GetProcessorIdentifer()
         {
-            var hwid = string.Empty;
+            string hwid = "";
 
             try
             {
