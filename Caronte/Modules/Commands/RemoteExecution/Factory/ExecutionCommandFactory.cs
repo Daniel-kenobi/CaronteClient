@@ -25,9 +25,10 @@ namespace Caronte.Modules.Commands.RemoteExecution.Factory
 
                 case CommandType.GET_FILE:
                     return new GetFile();
-            }
 
-            throw new NotImplementedException("Comando ainda não definido");
+                default:
+                    throw new NotImplementedException($"Comando {_commandType} não implementado");
+            }
         }
     }
 }

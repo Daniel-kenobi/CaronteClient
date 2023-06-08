@@ -6,6 +6,6 @@ namespace Caronte.Modules.ValidateClient
 {
     public class ValidateClientCommand : IRequest<CommonResponse>
     {
-        public ClientModel ClientInformation { get; set; }
+        public ClientModel ClientInformation { get; set; } = null!;
     }
 }

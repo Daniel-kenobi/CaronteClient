@@ -1,12 +1,12 @@
 ﻿using Caronte.Modules.Information.GetClientInformation;
 using Caronte.Modules.ValidateClient;
 using MediatR;
+using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Caronte.Utils.Client
 {
-    public class ClientValidation
+    public class ClientValidation : IClientValidation
     {
         private readonly IMediator _mediator;
         public ClientValidation(IMediator mediator)
@@ -20,10 +20,7 @@ namespace Caronte.Utils.Client
             var verifyAndCreateClientResponse = await _mediator.Send(new ValidateClientCommand() { ClientInformation = clientInformation.ResponseObject });
 
             if (!verifyAndCreateClientResponse.IsSucessFull)
-            {
-                Application.Exit();
-                return;
-            }
+                Process.GetCurrentProcess().Kill();
         }
     }
 }

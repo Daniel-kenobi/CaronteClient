@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Barsa.Modules.Interfaces;
+using Barsa.Models.Client;
 
 namespace Caronte.Modules.ValidateClient
 {
@@ -30,8 +31,8 @@ namespace Caronte.Modules.ValidateClient
 
             try
             {
-                var json = JsonSerializer.Serialize(request.ClientInformation);
-                var httpResponse = await _httpClient.PostAsync(_webServiceUrl.ValidateClient(), CreateStringContentToPost(json), cancellationToken);
+                var stringContentClientModel = CreateStringContentToPost(request.ClientInformation);
+                var httpResponse = await _httpClient.PostAsync(_webServiceUrl.ValidateClient(), stringContentClientModel, cancellationToken);
 
                 if (!httpResponse.IsSuccessStatusCode)
                     response.AddErrors(new Errors(ErrorType.BadRequest, httpResponse?.ReasonPhrase ?? "Unspecified error"));
@@ -44,8 +45,9 @@ namespace Caronte.Modules.ValidateClient
             return response;
         }
 
-        private StringContent CreateStringContentToPost(string json)
+        private StringContent CreateStringContentToPost(ClientModel client)
         {
+            var json = JsonSerializer.Serialize(client);
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
     }
