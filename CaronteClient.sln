@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte", "Caronte\Caronte.csproj", "{9D9B9656-09ED-49AC-AFBA-B33AF782E754}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Client", "Caronte\Caronte.Client.csproj", "{9D9B9656-09ED-49AC-AFBA-B33AF782E754}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tartaro", "..\CaronteWebService\CaronteWebService\Tartaro.csproj", "{5F65EA03-E3B3-49EA-8A2A-A9060B44E772}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Web", "..\CaronteWebService\CaronteWebService\Caronte.Web.csproj", "{5F65EA03-E3B3-49EA-8A2A-A9060B44E772}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Barsa", "..\CaronteLib\CaronteLib\Barsa.csproj", "{0CF7D90B-DB45-4459-A3DA-D00C2AB47055}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Lib", "..\CaronteLib\CaronteLib\Caronte.Lib.csproj", "{0CF7D90B-DB45-4459-A3DA-D00C2AB47055}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{8C934930-0D07-4AF5-A763-A727EA8A5398}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,6 +17,21 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D4DB3D66-592D-4DA0-BC0F-7904BF4F06B1}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSolution", "WebSolution", "{A865B393-28D2-495F-A11C-5BD291290418}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Domain", "..\CaronteDomain\Caronte.Domain\Caronte.Domain.csproj", "{EE2636F1-9311-49A6-9BBF-ED043122AB66}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Application", "..\CaronteApplication\Caronte.Application\Caronte.Application.csproj", "{45B641A8-E159-40E5-B3C7-4A24C3B15985}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D5486B52-FB59-4419-9294-CCDD9FE43749} = {D5486B52-FB59-4419-9294-CCDD9FE43749}
+		{EE2636F1-9311-49A6-9BBF-ED043122AB66} = {EE2636F1-9311-49A6-9BBF-ED043122AB66}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Infra", "..\CaronteInfra\CaronteInfra\Caronte.Infra.csproj", "{D5486B52-FB59-4419-9294-CCDD9FE43749}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EE2636F1-9311-49A6-9BBF-ED043122AB66} = {EE2636F1-9311-49A6-9BBF-ED043122AB66}
 	EndProjectSection
 EndProject
 Global
@@ -37,9 +52,27 @@ Global
 		{0CF7D90B-DB45-4459-A3DA-D00C2AB47055}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CF7D90B-DB45-4459-A3DA-D00C2AB47055}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CF7D90B-DB45-4459-A3DA-D00C2AB47055}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE2636F1-9311-49A6-9BBF-ED043122AB66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE2636F1-9311-49A6-9BBF-ED043122AB66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE2636F1-9311-49A6-9BBF-ED043122AB66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE2636F1-9311-49A6-9BBF-ED043122AB66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45B641A8-E159-40E5-B3C7-4A24C3B15985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45B641A8-E159-40E5-B3C7-4A24C3B15985}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45B641A8-E159-40E5-B3C7-4A24C3B15985}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45B641A8-E159-40E5-B3C7-4A24C3B15985}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5486B52-FB59-4419-9294-CCDD9FE43749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5486B52-FB59-4419-9294-CCDD9FE43749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5486B52-FB59-4419-9294-CCDD9FE43749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5486B52-FB59-4419-9294-CCDD9FE43749}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5F65EA03-E3B3-49EA-8A2A-A9060B44E772} = {A865B393-28D2-495F-A11C-5BD291290418}
+		{EE2636F1-9311-49A6-9BBF-ED043122AB66} = {A865B393-28D2-495F-A11C-5BD291290418}
+		{45B641A8-E159-40E5-B3C7-4A24C3B15985} = {A865B393-28D2-495F-A11C-5BD291290418}
+		{D5486B52-FB59-4419-9294-CCDD9FE43749} = {A865B393-28D2-495F-A11C-5BD291290418}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B97EB08-8822-4F50-B50C-69984B7F011A}

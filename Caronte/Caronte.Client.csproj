@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CaronteLib\CaronteLib\Barsa.csproj" />
+    <ProjectReference Include="..\..\CaronteLib\CaronteLib\Caronte.Lib.csproj" />
   </ItemGroup>
 
 </Project>
