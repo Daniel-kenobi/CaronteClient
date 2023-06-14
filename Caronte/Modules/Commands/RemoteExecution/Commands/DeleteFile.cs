@@ -1,6 +1,7 @@
-﻿using Barsa.Commons;
+﻿using Barsa.Abstracts;
+using Barsa.Commons;
+using Barsa.Interfaces;
 using Barsa.Models.Errors;
-using Barsa.Modules.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;

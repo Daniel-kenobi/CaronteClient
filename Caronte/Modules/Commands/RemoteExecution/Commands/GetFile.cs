@@ -1,5 +1,6 @@
-﻿using Barsa.Commons;
-using Barsa.Modules.Interfaces;
+﻿using Barsa.Abstracts;
+using Barsa.Commons;
+using Barsa.Interfaces;
 using System;
 using System.IO;
 
