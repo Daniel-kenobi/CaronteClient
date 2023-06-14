@@ -1,4 +1,4 @@
-﻿using Barsa.Interfaces;
+﻿using Barsa.Modules.Interfaces;
 using Barsa.Models.Errors;
 using Barsa.Commons;
 using MediatR;

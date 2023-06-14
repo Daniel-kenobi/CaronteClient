@@ -22,6 +22,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Barsa", "..\..\CaronteLib\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Web", "..\..\CaronteWebService\CaronteWebService\Caronte.Web.csproj", "{1A78C9FD-AB0F-4D4D-A802-C40FB60049DE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSolution", "WebSolution", "{48C39B5D-27B9-42A8-93BF-F2A0A7E46AEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caronte.Infra", "..\..\Caronte.Infra\Caronte.Infra\Caronte.Infra.csproj", "{A86C4F33-8D57-4F95-ABCB-7CA0416A76B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,9 +44,17 @@ Global
 		{1A78C9FD-AB0F-4D4D-A802-C40FB60049DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A78C9FD-AB0F-4D4D-A802-C40FB60049DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A78C9FD-AB0F-4D4D-A802-C40FB60049DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A86C4F33-8D57-4F95-ABCB-7CA0416A76B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A86C4F33-8D57-4F95-ABCB-7CA0416A76B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A86C4F33-8D57-4F95-ABCB-7CA0416A76B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A86C4F33-8D57-4F95-ABCB-7CA0416A76B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1A78C9FD-AB0F-4D4D-A802-C40FB60049DE} = {48C39B5D-27B9-42A8-93BF-F2A0A7E46AEF}
+		{A86C4F33-8D57-4F95-ABCB-7CA0416A76B0} = {48C39B5D-27B9-42A8-93BF-F2A0A7E46AEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B97EB08-8822-4F50-B50C-69984B7F011A}

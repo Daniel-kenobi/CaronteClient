@@ -1,7 +1,7 @@
-﻿using Barsa.Abstracts;
-using Barsa.Commons;
-using Barsa.Interfaces;
+﻿using Barsa.Commons;
 using Barsa.Models.Client;
+using Barsa.Modules.Errors.HandleExceptions;
+using Barsa.Modules.Interfaces;
 using MediatR;
 using System;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Caronte.Modules.Information.GetClientInformation
 {
-    public class GetClientInformationQueryHandler : HandleClientExceptions, IRequestHandler<GetClientInformationQuery, CommonResponse<ClientModel>>
+    public class GetClientInformationQueryHandler : HandleExceptions, IRequestHandler<GetClientInformationQuery, CommonResponse<ClientModel>>
     {
         public GetClientInformationQueryHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceURLFactory) : base(httpClientFactory, webServiceURLFactory)
         {

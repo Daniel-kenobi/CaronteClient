@@ -1,5 +1,5 @@
-﻿using Barsa.Implementations;
-using Barsa.Interfaces;
+﻿using Barsa.Modules.Interfaces;
+using Barsa.Modules.WebService;
 using Caronte.Modules.Information.GetKeyboardLog;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +20,7 @@ namespace Caronte.Configuration
         {
             IServiceCollection serviceColection = new ServiceCollection();
 
-            serviceColection.AddSingleton<IWebServiceURLFactory, WebServiceData>();
+            serviceColection.AddSingleton<IWebServiceURLFactory, WebServiceUrls>();
             serviceColection.AddMediatR(typeof(GetKeyboardLogQuery));
             serviceColection.AddHttpClient();
 

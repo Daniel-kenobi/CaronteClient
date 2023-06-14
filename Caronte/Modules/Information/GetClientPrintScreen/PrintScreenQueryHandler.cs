@@ -1,7 +1,7 @@
-﻿using Barsa.Abstracts;
-using Barsa.Interfaces;
+﻿using Barsa.Commons;
 using Barsa.Models.Errors;
-using Barsa.Commons;
+using Barsa.Modules.Errors.HandleExceptions;
+using Barsa.Modules.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace Caronte.Modules.Information.GetClientPrintScreen
 {
-    public class PrintScreenQueryHandler : HandleClientExceptions, IRequestHandler<PrintScreenQuery, CommonResponse>
+    public class PrintScreenQueryHandler : HandleExceptions, IRequestHandler<PrintScreenQuery, CommonResponse>
     {
         public PrintScreenQueryHandler(IHttpClientFactory httpClient, IWebServiceURLFactory urlFactory) : base(httpClient, urlFactory)
         {
