@@ -1,17 +1,17 @@
 ﻿using Barsa.Commons;
 using Barsa.Models.Client;
-using Barsa.Models.Errors;
 using Caronte.Modules.Command.RemoteExecution;
-using Caronte.Modules.Commands.RemoteExecution.Factory;
 using MediatR;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Threading;
+using System;
+using Barsa.Models.Errors;
+using System.Collections.Generic;
+using Caronte.Modules.Commands.RemoteExecution.Factory;
 
 namespace Caronte.Modules.Command.ReceiveCommand
 {

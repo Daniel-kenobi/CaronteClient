@@ -1,7 +1,10 @@
 ﻿using Barsa.Modules.Interfaces;
 using Barsa.Modules.WebService;
-using Caronte.Utils.Client;
+using Caronte.Modules.Information.GetKeyboardLog;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace Caronte.Configuration
@@ -17,15 +20,14 @@ namespace Caronte.Configuration
 
         public ServiceProvider ConfigureServices()
         {
-            IServiceCollection serviceCollection = new ServiceCollection();
+            IServiceCollection serviceColection = new ServiceCollection();
 
-            serviceCollection.AddSingleton<IWebServiceURLFactory, WebServiceUrls>();
-            serviceCollection.AddSingleton<IClientValidation, ClientValidation>();
+            serviceColection.AddSingleton<IWebServiceURLFactory, WebServiceUrls>();
+            serviceColection.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GeneralConfiguration>());
+            serviceColection.AddHttpClient();
 
-            serviceCollection.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GeneralConfiguration>());
-            serviceCollection.AddHttpClient();
-
-            return serviceCollection.BuildServiceProvider();
+            var serviceProvider = serviceColection.BuildServiceProvider();
+            return serviceProvider;
         }
     }
 }

@@ -5,19 +5,19 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Caronte.Modules
+namespace Caronte
 {
-    public class ModuleExecution
+    public class Execution
     {
         private readonly IMediator _mediator;
         private readonly CancellationToken _cancellationToken;
-        private readonly IClientValidation _clientValidation;
+        private readonly ClientValidation _clientValidation;
 
-        public ModuleExecution(IMediator mediator, IClientValidation clientValidation)
+        public Execution(IMediator mediator, CancellationToken cancellationToken)
         {
             _mediator = mediator;
-            _clientValidation = clientValidation;
-            _cancellationToken = default;
+            _cancellationToken = cancellationToken;
+            _clientValidation = new ClientValidation(_mediator);
         }
 
         public async Task Execute()

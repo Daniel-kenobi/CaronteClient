@@ -1,10 +1,7 @@
 using Caronte.Configuration;
-using Caronte.Modules;
-using Caronte.Utils.Client;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Caronte
@@ -17,16 +14,14 @@ namespace Caronte
             GeneralConfiguration configureApplication = new();
             
             var mediator = configureApplication.ConfigureServices().GetRequiredService<IMediator>();
-            var clientValidation = configureApplication.ConfigureServices().GetRequiredService<IClientValidation>();
-
             configureApplication.ConfigureAttributes();
 
-            await InitializeExecution(mediator, clientValidation);
+            await InitializeExecution(mediator, default);
         }
 
-        private static async Task InitializeExecution(IMediator mediator, IClientValidation clientValidation)
+        private static async Task InitializeExecution(IMediator mediator, System.Threading.CancellationToken cancellationToken)
         {
-            var initializeModules = new ModuleExecution(mediator, clientValidation);
+            var initializeModules = new Execution(mediator, cancellationToken);
             await initializeModules.Execute();
         }
     }
