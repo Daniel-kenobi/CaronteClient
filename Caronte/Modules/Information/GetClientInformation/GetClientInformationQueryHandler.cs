@@ -16,7 +16,7 @@ namespace Caronte.Modules.Information.GetClientInformation
 {
     public class GetClientInformationQueryHandler : HandleExceptions, IRequestHandler<GetClientInformationQuery, CommonResponse<ClientModel>>
     {
-        public GetClientInformationQueryHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceURLFactory) : base(httpClientFactory, webServiceURLFactory)
+        public GetClientInformationQueryHandler(IHttpClientFactory httpClientFactory, IWebServiceURL webServiceURLFactory) : base(httpClientFactory, webServiceURLFactory)
         {
 
         }

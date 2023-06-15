@@ -27,7 +27,7 @@ namespace Caronte.Modules.Command.ReceiveCommand
             }
             catch (Exception ex)
             {
-                response.AddErrors(new Errors(ErrorType.Unspecified, ex?.InnerException?.Message ?? ex.Message, new List<Exception>() { ex }));
+                response.AddErrors(new Error(ErrorType.Unspecified, ex?.InnerException?.Message ?? ex.Message, new List<Exception>() { ex }));
             }
 
             return Task.FromResult(response);

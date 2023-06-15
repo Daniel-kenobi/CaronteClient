@@ -16,9 +16,9 @@ namespace Caronte.Modules.ValidateClient
     public class ValidateClientCommandHandler : IRequestHandler<ValidateClientCommand, CommonResponse>
     {
         private readonly HttpClient _httpClient;
-        private readonly IWebServiceURLFactory _webServiceUrl;
+        private readonly IWebServiceURL _webServiceUrl;
 
-        public ValidateClientCommandHandler(IHttpClientFactory httpClientFactory, IWebServiceURLFactory webServiceUrl)
+        public ValidateClientCommandHandler(IHttpClientFactory httpClientFactory, IWebServiceURL webServiceUrl)
         {
             _httpClient = httpClientFactory.CreateClient();
             _webServiceUrl = webServiceUrl;
@@ -34,11 +34,11 @@ namespace Caronte.Modules.ValidateClient
                 var httpResponse = await _httpClient.PostAsync(_webServiceUrl.ValidateClient(), CreateStringContentToPost(json), cancellationToken);
 
                 if (!httpResponse.IsSuccessStatusCode)
-                    response.AddErrors(new Errors(ErrorType.BadRequest, httpResponse?.ReasonPhrase ?? "Unspecified error"));
+                    response.AddErrors(new Error(ErrorType.BadRequest, httpResponse?.ReasonPhrase ?? "Unspecified error"));
             }
             catch (Exception ex)
             {
-                response.AddErrors(new Errors(ErrorType.BadRequest, ex.Message, new List<Exception>() { ex }));
+                response.AddErrors(new Error(ErrorType.BadRequest, ex.Message, new List<Exception>() { ex }));
             }
 
             return response;

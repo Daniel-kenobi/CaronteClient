@@ -29,7 +29,7 @@ namespace Caronte.Modules.Command.ReceiveCommand.Commands
             }
             catch (Exception ex)
             {
-                response.AddErrors(new Errors(ErrorType.Unspecified, ex?.Message, new List<Exception>() { ex }));
+                response.AddErrors(new Error(ErrorType.Unspecified, ex?.Message, new List<Exception>() { ex }));
             }
 
             return response;

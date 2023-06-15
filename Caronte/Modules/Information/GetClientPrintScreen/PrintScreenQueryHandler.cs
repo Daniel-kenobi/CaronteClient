@@ -16,7 +16,7 @@ namespace Caronte.Modules.Information.GetClientPrintScreen
 {
     public class PrintScreenQueryHandler : HandleExceptions, IRequestHandler<PrintScreenQuery, CommonResponse>
     {
-        public PrintScreenQueryHandler(IHttpClientFactory httpClient, IWebServiceURLFactory urlFactory) : base(httpClient, urlFactory)
+        public PrintScreenQueryHandler(IHttpClientFactory httpClient, IWebServiceURL urlFactory) : base(httpClient, urlFactory)
         {
 
         }
@@ -45,7 +45,7 @@ namespace Caronte.Modules.Information.GetClientPrintScreen
             catch (Exception ex)
             {
                 await Handle(ex);
-                response.AddErrors(new Errors(ErrorType.BadRequest, ex?.Message, new List<Exception>() { ex }));
+                response.AddErrors(new Error(ErrorType.BadRequest, ex?.Message, new List<Exception>() { ex }));
             }
 
             return response;
