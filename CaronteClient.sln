@@ -18,13 +18,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Barsa", "..\..\CaronteLib\CaronteLib\Barsa.csproj", "{DA193DDD-8C35-4C09-B210-D4C353370ABE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Commons", "..\..\CaronteLib\CaronteLib\Caronte.Commons.csproj", "{DA193DDD-8C35-4C09-B210-D4C353370ABE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Web", "..\..\CaronteWebService\CaronteWebService\Caronte.Web.csproj", "{1A78C9FD-AB0F-4D4D-A802-C40FB60049DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSolution", "WebSolution", "{48C39B5D-27B9-42A8-93BF-F2A0A7E46AEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caronte.Infra", "..\..\Caronte.Infra\Caronte.Infra\Caronte.Infra.csproj", "{A86C4F33-8D57-4F95-ABCB-7CA0416A76B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Infra", "..\..\Caronte.Infra\Caronte.Infra\Caronte.Infra.csproj", "{A86C4F33-8D57-4F95-ABCB-7CA0416A76B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

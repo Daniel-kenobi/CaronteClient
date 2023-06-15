@@ -19,6 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\CaronteLib\CaronteLib\Barsa.csproj" />
+    <ProjectReference Include="..\..\..\CaronteLib\CaronteLib\Caronte.Commons.csproj" />
   </ItemGroup>
 </Project>
