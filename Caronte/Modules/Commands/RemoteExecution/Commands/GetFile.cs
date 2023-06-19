@@ -1,5 +1,5 @@
-﻿using Barsa.Commons;
-using Barsa.Modules.Interfaces;
+﻿using Caronte.Domain.Interfaces;
+using Caronte.Domain.Responses;
 using System;
 using System.IO;
 

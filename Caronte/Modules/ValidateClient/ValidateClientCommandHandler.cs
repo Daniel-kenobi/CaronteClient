@@ -1,6 +1,6 @@
-﻿using Barsa.Modules.Interfaces;
-using Barsa.Models.Errors;
-using Barsa.Commons;
+﻿using Caronte.Domain.Models.Errors;
+using Caronte.Domain.Responses;
+using Caronte.Utils.ApiUrl;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,6 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Caronte.Modules.ValidateClient
 {

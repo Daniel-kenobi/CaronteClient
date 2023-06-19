@@ -1,6 +1,4 @@
-﻿using Barsa.Modules.Interfaces;
-
-namespace Caronte.Utils.ApiUrl;
+﻿namespace Caronte.Utils.ApiUrl;
 
 public class WebServiceUrls : IWebServiceURL
 {

@@ -1,5 +1,5 @@
-﻿using Barsa.Models.Client;
-using Barsa.Commons;
+﻿using Caronte.Domain.Models.Client;
+using Caronte.Domain.Responses;
 using MediatR;
 
 namespace Caronte.Modules.Information.GetClientInformation

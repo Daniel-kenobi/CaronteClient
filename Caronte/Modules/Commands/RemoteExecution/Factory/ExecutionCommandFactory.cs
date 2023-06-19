@@ -1,5 +1,5 @@
-﻿using Barsa.Commons;
-using Barsa.Modules.Interfaces;
+﻿using Caronte.Domain.Enums;
+using Caronte.Domain.Interfaces;
 using Caronte.Modules.Command.ReceiveCommand.Commands;
 using System;
 

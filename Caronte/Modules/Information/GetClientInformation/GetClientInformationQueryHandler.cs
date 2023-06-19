@@ -1,7 +1,7 @@
-﻿using Barsa.Commons;
-using Barsa.Models.Client;
-using Barsa.Modules.Errors.HandleExceptions;
-using Barsa.Modules.Interfaces;
+﻿using Caronte.Domain.Models.Client;
+using Caronte.Domain.Responses;
+using Caronte.Utils.ApiUrl;
+using Caronte.Utils.Exceptions;
 using MediatR;
 using System;
 using System.Linq;

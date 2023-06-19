@@ -1,6 +1,6 @@
-﻿using Barsa.Commons;
-using Barsa.Modules.Interfaces;
-using Barsa.Models.Errors;
+﻿using Caronte.Domain.Interfaces;
+using Caronte.Domain.Models.Errors;
+using Caronte.Domain.Responses;
 using System;
 using System.Collections.Generic;
 using System.IO;

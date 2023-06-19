@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Client", "Caronte\Caronte.Client.csproj", "{9D9B9656-09ED-49AC-AFBA-B33AF782E754}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DA193DDD-8C35-4C09-B210-D4C353370ABE} = {DA193DDD-8C35-4C09-B210-D4C353370ABE}
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{8C934930-0D07-4AF5-A763-A727EA8A5398}"
 	ProjectSection(SolutionItems) = preProject
@@ -18,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Commons", "..\..\CaronteLib\CaronteLib\Caronte.Commons.csproj", "{DA193DDD-8C35-4C09-B210-D4C353370ABE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Web", "..\..\CaronteWebService\CaronteWebService\Caronte.Web.csproj", "{1A78C9FD-AB0F-4D4D-A802-C40FB60049DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSolution", "WebSolution", "{48C39B5D-27B9-42A8-93BF-F2A0A7E46AEF}"
@@ -30,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Application", "..\.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Domain", "..\..\Caronte.Domain\Caronte.Domain\Caronte.Domain.csproj", "{CB528173-526D-4F1F-AE50-901ADC472CDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caronte.DependencyInjection", "..\..\Caronte.DependencyInjection\Caronte.DependencyInjection\Caronte.DependencyInjection.csproj", "{DE2D1C8F-4F3C-4D93-97B6-8ACB3E20752A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.DependencyInjection", "..\..\Caronte.DependencyInjection\Caronte.DependencyInjection\Caronte.DependencyInjection.csproj", "{DE2D1C8F-4F3C-4D93-97B6-8ACB3E20752A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,10 +37,6 @@ Global
 		{9D9B9656-09ED-49AC-AFBA-B33AF782E754}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D9B9656-09ED-49AC-AFBA-B33AF782E754}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D9B9656-09ED-49AC-AFBA-B33AF782E754}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA193DDD-8C35-4C09-B210-D4C353370ABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA193DDD-8C35-4C09-B210-D4C353370ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA193DDD-8C35-4C09-B210-D4C353370ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA193DDD-8C35-4C09-B210-D4C353370ABE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1A78C9FD-AB0F-4D4D-A802-C40FB60049DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A78C9FD-AB0F-4D4D-A802-C40FB60049DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A78C9FD-AB0F-4D4D-A802-C40FB60049DE}.Release|Any CPU.ActiveCfg = Release|Any CPU

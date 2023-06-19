@@ -1,7 +1,6 @@
-﻿using Barsa.Commons;
-using Barsa.Models.Client;
+﻿using Caronte.Domain.Models.Client;
+using Caronte.Domain.Responses;
 using MediatR;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Caronte.Modules.Command.RemoteExecution
 {

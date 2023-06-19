@@ -1,4 +1,4 @@
-﻿using Barsa.Commons;
+﻿using Caronte.Domain.Responses;
 using MediatR;
 
 namespace Caronte.Modules.Information.GetKeyboardLog

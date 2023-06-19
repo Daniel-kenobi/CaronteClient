@@ -1,6 +1,6 @@
-﻿using Barsa.Commons;
-using Barsa.Models.Client;
-using Barsa.Models.Errors;
+﻿using Caronte.Domain.Models.Client;
+using Caronte.Domain.Models.Errors;
+using Caronte.Domain.Responses;
 using Caronte.Modules.Command.RemoteExecution;
 using Caronte.Modules.Commands.RemoteExecution.Factory;
 using MediatR;
@@ -33,7 +33,7 @@ namespace Caronte.Modules.Command.ReceiveCommand
             return Task.FromResult(response);
         }
 
-        private void ConfigureQueueExecution(ClientModel clientModel)
+        private void ConfigureQueueExecution(Domain.Models.Client.ClientModel clientModel)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
