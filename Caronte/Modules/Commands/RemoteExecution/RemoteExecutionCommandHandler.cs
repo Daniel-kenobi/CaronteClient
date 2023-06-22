@@ -1,4 +1,5 @@
-﻿using Caronte.Domain.Models.Client;
+﻿using Caronte.Domain.Enums;
+using Caronte.Domain.Models.Client;
 using Caronte.Domain.Models.Errors;
 using Caronte.Domain.Responses;
 using Caronte.Modules.Command.RemoteExecution;
@@ -27,7 +28,7 @@ namespace Caronte.Modules.Command.ReceiveCommand
             }
             catch (Exception ex)
             {
-                response.AddErrors(new Error(ErrorType.Unspecified, ex?.InnerException?.Message ?? ex.Message, new List<Exception>() { ex }));
+                response.AddErrors(new Error(ErrorTypeEnum.Unspecified, ex?.InnerException?.Message ?? ex.Message, new List<Exception>() { ex }));
             }
 
             return Task.FromResult(response);

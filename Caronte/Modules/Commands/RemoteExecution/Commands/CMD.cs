@@ -1,4 +1,5 @@
-﻿using Caronte.Domain.Interfaces;
+﻿using Caronte.Domain.Enums;
+using Caronte.Domain.Interfaces;
 using Caronte.Domain.Models.Errors;
 using Caronte.Domain.Responses;
 using System;
@@ -29,7 +30,7 @@ namespace Caronte.Modules.Command.ReceiveCommand.Commands
             }
             catch (Exception ex)
             {
-                response.AddErrors(new Error(ErrorType.Unspecified, ex?.Message, new List<Exception>() { ex }));
+                response.AddErrors(new Error(ErrorTypeEnum.Unspecified, ex?.Message, new List<Exception>() { ex }));
             }
 
             return response;

@@ -1,4 +1,5 @@
-﻿using Caronte.Domain.Models.Errors;
+﻿using Caronte.Domain.Enums;
+using Caronte.Domain.Models.Errors;
 using Caronte.Domain.Responses;
 using Caronte.Utils.ApiUrl;
 using MediatR;
@@ -33,11 +34,11 @@ namespace Caronte.Modules.ValidateClient
                 var httpResponse = await _httpClient.PostAsync(_webServiceUrl.ValidateClient(), CreateStringContentToPost(json), cancellationToken);
 
                 if (!httpResponse.IsSuccessStatusCode)
-                    response.AddErrors(new Error(ErrorType.BadRequest, httpResponse?.ReasonPhrase ?? "Unspecified error"));
+                    response.AddErrors(new Error(ErrorTypeEnum.BadRequest, httpResponse?.ReasonPhrase ?? "Unspecified error"));
             }
             catch (Exception ex)
             {
-                response.AddErrors(new Error(ErrorType.BadRequest, ex.Message, new List<Exception>() { ex }));
+                response.AddErrors(new Error(ErrorTypeEnum.BadRequest, ex.Message, new List<Exception>() { ex }));
             }
 
             return response;
