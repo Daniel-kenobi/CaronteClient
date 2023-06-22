@@ -5,11 +5,6 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Client", "Caronte\Caronte.Client.csproj", "{9D9B9656-09ED-49AC-AFBA-B33AF782E754}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{8C934930-0D07-4AF5-A763-A727EA8A5398}"
-	ProjectSection(SolutionItems) = preProject
-		..\Sql,s\Create tables.sql = ..\Sql,s\Create tables.sql
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D4DB3D66-592D-4DA0-BC0F-7904BF4F06B1}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -26,6 +21,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.Domain", "..\..\Caronte.Domain\Caronte.Domain\Caronte.Domain.csproj", "{CB528173-526D-4F1F-AE50-901ADC472CDC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caronte.DependencyInjection", "..\..\Caronte.DependencyInjection\Caronte.DependencyInjection\Caronte.DependencyInjection.csproj", "{DE2D1C8F-4F3C-4D93-97B6-8ACB3E20752A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql,s", "Sql,s", "{CE996075-EC4E-4AA6-8FE9-D9CD4A8EBDC4}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Sql,s\Create tables.sql = ..\..\Sql,s\Create tables.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
